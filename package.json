@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "curl-request": "^1.1.1",
+    "node-libcurl": "^1.3.3",
     "node-telegram-bot-api": "^0.30.0",
     "request": "^2.88.0"
   },
