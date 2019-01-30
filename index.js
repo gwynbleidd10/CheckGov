@@ -12,6 +12,8 @@ function sendMessage(){
   https://api.telegram.org/bot775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY/sendMessage?chat_id=337277275&text=Проблемы%20с%20'.$val
 }
 
+checkGov();
+  
 function checkGov(){  
   request('http://www.google.com', function (error, response, body) {
     console.log('error:', error); // Print the error if one occurred
