@@ -8,8 +8,8 @@ var url = [
 
 //setInterval(checkGov, 180000);
 
-function sendMessage(){
-  //https://api.telegram.org/bot775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY/sendMessage?chat_id=337277275&text=Проблемы%20с%20'.$val
+function sendMessage(addr){
+ request('https://api.telegram.org/bot775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY/sendMessage?chat_id=337277275&text=Проблемы%20с%20' + addr);
 }
 
 checkGov();
@@ -18,7 +18,7 @@ function checkGov(){
   url.forEach(function(item, i, url) {
     request(item, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log(item + " is OK");
+        console.log("OK : " + item);
       } else {
         sendMessage(item);
       }
