@@ -15,8 +15,17 @@ function sendMessage(){
 checkGov();
   
 function checkGov(){  
-  request('http://asd.0code.pro/', function (error, response, body) {
-    console.log('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+  url.forEach(function(item, i, url) {
+  alert( i + ": " + item + " (массив:" + url + ")" );
+});
+  
+  
+  
+  request(val', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(val + " is OK");
+    } else {
+      sendMessage(val);
+    }
   });
 }
