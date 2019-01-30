@@ -4,7 +4,13 @@ var url = [
   'https://www.sakha.gov.ru',
   'https://www.e-yakutia.ru/bs/main.htm',
   'http://dom.e-yakutia.ru'
- ];
+];
+
+var name = [
+  'sakha.gov',
+  'e-yakutia',
+  'dom.e-yakutia'
+];
 
 //setInterval(checkGov, 180000);
 
@@ -25,7 +31,7 @@ function checkGov(){
       if (!error && response.statusCode == 200) {
         console.log("OK : " + item);
       } else {
-        sendMessage(item);
+        sendMessage(name[i]);
       }
     });
   });
