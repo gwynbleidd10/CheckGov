@@ -9,12 +9,6 @@ var url = [
   'http://dom.e-yakutia.ru'
 ];
 
-var name = [
-  'sakha.gov',
-  'e-yakutia',
-  'dom.e-yakutia'
-];
-
 //setInterval(checkGov, 180000);
 
 function sendMessage(addr){;
@@ -29,7 +23,7 @@ function checkGov(){
       if (!error && response.statusCode == 200) {
         console.log("OK : " + item);
       } else {
-        sendMessage(name[i]);
+        sendMessage(item);
       }
     });
   });
