@@ -9,7 +9,9 @@ var url = [
 //setInterval(checkGov, 180000);
 
 function sendMessage(addr){
- request('https://api.telegram.org/bot775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY/sendMessage?chat_id=337277275&text=Проблемы%20с%20' + addr);
+ request('https://api.telegram.org/bot775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY/sendMessage?chat_id=337277275&text=Проблемы%20с%20' + addr, function (error, response, body) {
+ 
+ });
 }
 
 checkGov();
