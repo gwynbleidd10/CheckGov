@@ -15,7 +15,7 @@ var name = [
 //setInterval(checkGov, 180000);
 
 function sendMessage(addr){
- var str = 'https://api.telegram.org/bot775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY/sendMessage?chat_id=337277275&text=Проблемы%20с%20' + addr;
+ var str = 'https://api.telegram.org/bot775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY/sendMessage?chat_id=337277275&text=Проблемы_с_' + addr;
  console.log(str);
   request(str, function (error, response, body) {
   console.log('error:', error);
