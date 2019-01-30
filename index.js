@@ -16,7 +16,7 @@ checkGov();
   
 function checkGov(){  
   url.forEach(function(item, i, url) {
-  alert( i + ": " + item + " (массив:" + url + ")" );
+  console.log( i + ": " + item + " (массив:" + url + ")" );
 });
   
   
