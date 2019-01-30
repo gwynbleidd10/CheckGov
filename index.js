@@ -16,16 +16,12 @@ checkGov();
   
 function checkGov(){  
   url.forEach(function(item, i, url) {
-  console.log( i + ": " + item + " (массив:" + url + ")" );
-});
-  
-  
-  
-  request(val, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.log(val + " is OK");
-    } else {
-      sendMessage(val);
-    }
+    request(item, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log(item + " is OK");
+      } else {
+        sendMessage(item);
+      }
+    });
   });
 }
