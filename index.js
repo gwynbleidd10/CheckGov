@@ -9,7 +9,7 @@ var url = [
   'http://dom.e-yakutia.ru'
 ];
 
-//setInterval(checkGov, 180000);
+setInterval(checkGov, 180000);
 
 function sendMessage(addr){;
   bot.sendMessage('337277275', 'Проблемы с ' + addr);
