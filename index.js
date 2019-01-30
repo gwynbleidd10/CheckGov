@@ -1,5 +1,7 @@
 const request = require('request');
-const https = require('https');
+const TelegramBot = require('node-telegram-bot-api');
+const token = '775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY';
+const bot = new TelegramBot(token, {polling: true});
 
 var url = [
   'https://www.sakha.gov.ru',
@@ -15,16 +17,8 @@ var name = [
 
 //setInterval(checkGov, 180000);
 
-function sendMessage(addr){
- var str = 'https://api.telegram.org/bot775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY/sendMessage?chat_id=337277275&text=Проблемы';
- console.log(str);
-  
-  https.get(str, (res) => { });
-  
-  /*request(str, function (error, response, body) {
-    console.log('error:', error);
-    console.log('statusCode:', response && response.statusCode);
- });*/
+function sendMessage(addr){;
+  bot.sendMessage('337277275', 'Проблемы с ' + addr);
 }
 
 checkGov();
