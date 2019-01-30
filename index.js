@@ -1,4 +1,5 @@
 const request = require('request');
+const https = require('https');
 
 var url = [
   'https://www.sakha.gov.ru',
@@ -17,10 +18,13 @@ var name = [
 function sendMessage(addr){
  var str = 'https://api.telegram.org/bot775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY/sendMessage?chat_id=337277275&text=Проблемы';
  console.log(str);
-  request(str, function (error, response, body) {
-  console.log('error:', error);
-  console.log('statusCode:', response && response.statusCode);
- });
+  
+  https.get(str, (res) => { });
+  
+  /*request(str, function (error, response, body) {
+    console.log('error:', error);
+    console.log('statusCode:', response && response.statusCode);
+ });*/
 }
 
 checkGov();
