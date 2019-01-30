@@ -21,7 +21,7 @@ function checkGov(){
   
   
   
-  request(val', function (error, response, body) {
+  request(val, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(val + " is OK");
     } else {
