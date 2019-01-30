@@ -9,7 +9,7 @@ var url = [
   'https://www.e-yakutia.ru/bs/main.htm'  
 ];
 
-//setInterval(checkGov, 180000);
+setInterval(checkGov, 180000);
 
 function sendMessage(addr){;
   console.log('ERROR : ' + addr);
