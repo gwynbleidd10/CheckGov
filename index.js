@@ -10,7 +10,8 @@ var url = [
 
 function sendMessage(addr){
  var str = 'https://api.telegram.org/bot775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY/sendMessage?chat_id=337277275&text=Проблемы%20с%20' + addr;
- request(str, function (error, response, body) {
+ console.log(str);
+  request(str, function (error, response, body) {
   console.log('error:', error);
   console.log('statusCode:', response && response.statusCode);
  });
