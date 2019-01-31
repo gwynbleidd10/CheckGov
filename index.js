@@ -16,6 +16,8 @@ bot.on('message', (msg) => {
 
 setInterval(checkGov, 180000);
 
+checkGov();
+
 function sendMessage(addr){;
   console.log('ERROR : ' + addr);
   bot.sendMessage('337277275', 'Проблемы с ' + addr);
