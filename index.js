@@ -20,8 +20,6 @@ function sendMessage(addr){;
   console.log('ERROR : ' + addr);
   bot.sendMessage('337277275', 'Проблемы с ' + addr);
 }
-
-checkGov();
   
 function checkGov(){
   url.forEach(function(item, i, url) {
