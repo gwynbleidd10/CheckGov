@@ -48,4 +48,5 @@ function checkGov(){
     console.log(e);
     sendMessage('http://dom.e-yakutia.ru');
   });
+  console.log("------------------------------------");
 }
