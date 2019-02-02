@@ -24,7 +24,7 @@ bot.onText(/\/service/, function (msg) {
 });
 
 var url = [
-  'https://www.sakha.gov.ru',
+  'http://asd.0code.pro,'//'https://www.sakha.gov.ru',
   'https://www.e-yakutia.ru/bs/main.htm'  
 ];
 
