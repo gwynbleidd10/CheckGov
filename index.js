@@ -1,7 +1,8 @@
-const request = require('request');
 const TelegramBot = require('node-telegram-bot-api');
 const token = '775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY';
 const bot = new TelegramBot(token, {polling: true});
+
+const request = require('request');
 const Curl = require( 'curl-request' );
 
 var url = [
@@ -13,6 +14,18 @@ bot.on('message', (msg) => {
   const chatId = msg.chat.id;
   //bot.sendMessage(chatId, 'Received your message');
 });
+
+bot.onText(/service в (.+)/, function (msg, match) {
+    var userId = msg.from.id;
+    var text = match[1];
+    var time = match[2];
+
+    notes.push({ 'uid': userId, 'time': time, 'text': text });
+
+    bot.sendMessage(userId, 'Отлично! Я обязательно напомню, если не сдохну :)');
+});
+
+
 
 setInterval(checkGov, 180000);
 
