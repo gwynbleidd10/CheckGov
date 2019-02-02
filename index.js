@@ -6,7 +6,7 @@ const bot = new TelegramBot(token, {polling: true});
 const request = require('request');
 const Curl = require( 'curl-request' );
 
-var service = true;
+var service = false;
 var time;
 var err = [0, 0, 0];
 
@@ -34,48 +34,70 @@ function getTime() {
   return new Date().toLocaleDateString('ru', {timeZone: 'Asia/Yakutsk', hour: 'numeric', minute: 'numeric'});
 }
 
-function sendMessage(status, site){;
-  bot.sendMessage('337277275', 'Проблемы с ' + site);
+function sendMessage(status, site, id){
+  if (status == false) {
+    bot.sendMessage('337277275', time[id] + ' | Потеряно соединение с ' + site);
+  } else {
+    bot.sendMessage('337277275', getTime() + ' | Восстановлено соединение с ' + site);
+  }  
 }
   
 function checkGov(){
-  url.forEach(function(item, i, url) {
-    request(item, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        if (err[i] != 0){
-          err[i] == 0;
-          sendMessage(true, item)
-        }
-        console.log("OK : " + item + i);
-      } else {
-        if (err[i] == 0) {
-          time[i] = getTime();
-          err[i]++;
-          sendMessage(false, item);
+  if (service == false) {
+    url.forEach(function(item, i, url) {
+      request(item, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          if (err[i] != 0){
+            err[i] == 0;
+            sendMessage(true, item, i)
+          }
+          console.log("OK : " + item);
         } else {
-          err[i]++;
+          if (err[i] == 0) {
+            time[i] = getTime();
+            err[i]++;
+            sendMessage(false, item, i);
+          } else {
+            err[i]++;
+          }
+          console.log('ERROR : ' + item);
         }
-        console.log('ERROR : ' + item);
+      });
+    });
+    const curl = new Curl;
+    curl.setHeaders([
+      'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'
+    ])
+    .get('http://dom.e-yakutia.ru')
+    .then(({statusCode, body, headers}) => {
+      if (statusCode == 200) {
+        if (err[2] != 0){
+          err[2] == 0;
+          sendMessage(true, 'http://dom.e-yakutia.ru', 2)
+        }
+        console.log("OK : " + 'http://dom.e-yakutia.ru');
+      } else {
+        if (err[2] == 0) {
+          time[2] = getTime();
+          err[2]++;
+          sendMessage(false, 'http://dom.e-yakutia.ru', 2);
+        } else {
+          err[2]++;
+        }
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+      if (err[2] == 0) {
+        time[2] = getTime();
+        err[2]++;
+        sendMessage(false, 'http://dom.e-yakutia.ru', 2);
+      } else {
+        err[2]++;
       }
     });
-  });
-  const curl = new Curl;
-  curl.setHeaders([
-    'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'
-  ])
-  .get('http://dom.e-yakutia.ru')
-  .then(({statusCode, body, headers}) => {
-    if (statusCode == 200) {
-      console.log("OK : " + 'http://dom.e-yakutia.ru');
-    } else {
-      sendMessage('http://dom.e-yakutia.ru');
-    }
-  })
-  .catch((e) => {
-    console.log(e);
-    sendMessage('http://dom.e-yakutia.ru');
-  });
-  console.log("------------------------------------");
-}
+    console.log("------------------------------------");  
+  }
+};
 
 setInterval(checkGov, 60000);
