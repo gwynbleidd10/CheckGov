@@ -7,16 +7,14 @@ const request = require('request');
 const Curl = require( 'curl-request' );
 
 var service = true;
+var time;
+var error = [0, 0, 0];
 
 /*bot.on('message', (msg) => {
   const chatId = msg.chat.id;
 
   // send a message to the chat acknowledging receipt of their message
   bot.sendMessage(chatId, 'Received your message');
-});*/
-
-/*bot.on('polling_error', (error) => {
-  console.log(error.code);  // => 'EFATAL'
 });*/
 
 bot.onText(/\/service/, function (msg) {
@@ -32,18 +30,32 @@ var url = [
 
 checkGov();
 
-function sendMessage(addr){;
-  console.log('ERROR : ' + addr);
-  bot.sendMessage('337277275', 'Проблемы с ' + addr);
+function getTime() {
+  return new Date().toLocaleDateString('ru', {timeZone: 'Asia/Yakutsk', hour: 'numeric', minute: 'numeric'});
+}
+
+function sendMessage(status, site){;
+  bot.sendMessage('337277275', 'Проблемы с ' + site);
 }
   
 function checkGov(){
   url.forEach(function(item, i, url) {
     request(item, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log("OK : " + item);
+        if (error[i] != 0){
+          error[i] == 0;
+          sendMessage(true, item)
+        }
+        console.log("OK : " + item + i);
       } else {
-        sendMessage(item);
+        if (error[i] == 0) {
+          time[i] = getTime();
+          error[i]++;
+          sendMessage(false, item);
+        } else {
+          error[i]++;
+        }
+        console.log('ERROR : ' + item);
       }
     });
   });
@@ -66,4 +78,4 @@ function checkGov(){
   console.log("------------------------------------");
 }
 
-setInterval(checkGov, 180000);
+setInterval(checkGov, 60000);
