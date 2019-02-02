@@ -8,7 +8,7 @@ const Curl = require( 'curl-request' );
 
 var service = true;
 var time;
-var error = [0, 0, 0];
+var err = [0, 0, 0];
 
 /*bot.on('message', (msg) => {
   const chatId = msg.chat.id;
@@ -42,18 +42,18 @@ function checkGov(){
   url.forEach(function(item, i, url) {
     request(item, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        if (error[i] != 0){
-          error[i] == 0;
+        if (err[i] != 0){
+          err[i] == 0;
           sendMessage(true, item)
         }
         console.log("OK : " + item + i);
       } else {
-        if (error[i] == 0) {
+        if (err[i] == 0) {
           time[i] = getTime();
-          error[i]++;
+          err[i]++;
           sendMessage(false, item);
         } else {
-          error[i]++;
+          err[i]++;
         }
         console.log('ERROR : ' + item);
       }
