@@ -1,3 +1,4 @@
+process.env.NTBA_FIX_319 = 1;
 const TelegramBot = require('node-telegram-bot-api');
 const token = '775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY';
 const bot = new TelegramBot(token, {polling: true});
@@ -5,29 +6,29 @@ const bot = new TelegramBot(token, {polling: true});
 const request = require('request');
 const Curl = require( 'curl-request' );
 
+var service = true;
+
+/*bot.on('message', (msg) => {
+  const chatId = msg.chat.id;
+
+  // send a message to the chat acknowledging receipt of their message
+  bot.sendMessage(chatId, 'Received your message');
+});*/
+
+/*bot.on('polling_error', (error) => {
+  console.log(error.code);  // => 'EFATAL'
+});*/
+
+bot.onText(/\/service/, function (msg) {
+  service = !service;
+  bot.sendMessage(msg.from.id, 'Service успешно установлен в: ' + service);
+  console.log("Service: " + service);
+});
+
 var url = [
   'https://www.sakha.gov.ru',
   'https://www.e-yakutia.ru/bs/main.htm'  
 ];
-
-bot.on('message', (msg) => {
-  const chatId = msg.chat.id;
-  //bot.sendMessage(chatId, 'Received your message');
-});
-
-bot.onText(/service в (.+)/, function (msg, match) {
-    var userId = msg.from.id;
-    var text = match[1];
-    var time = match[2];
-
-    notes.push({ 'uid': userId, 'time': time, 'text': text });
-
-    bot.sendMessage(userId, 'Отлично! Я обязательно напомню, если не сдохну :)');
-});
-
-
-
-setInterval(checkGov, 180000);
 
 checkGov();
 
@@ -64,3 +65,5 @@ function checkGov(){
   });
   console.log("------------------------------------");
 }
+
+setInterval(checkGov, 180000);
