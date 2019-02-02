@@ -7,7 +7,7 @@ const request = require('request');
 const Curl = require( 'curl-request' );
 
 var service = false;
-var time;
+var time = [0, 0, 0];
 var err = [0, 0, 0];
 
 /*bot.on('message', (msg) => {
