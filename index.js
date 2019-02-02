@@ -39,7 +39,8 @@ function sendMessage(status, site, id){
     bot.sendMessage('337277275', time[id] + ' | Потеряно соединение с ' + site);
   } else {
     bot.sendMessage('337277275', getTime() + ' | Восстановлено соединение с ' + site);
-  }  
+  }
+  console.log("Отправлено сообщение");
 }
   
 function checkGov(){
@@ -48,17 +49,15 @@ function checkGov(){
       request(item, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           if (err[i] != 0){
-            err[i] == 0;
+            err[i] = 0;
             sendMessage(true, item, i)
           }
           console.log("OK : " + item);
         } else {
           if (err[i] == 0) {
             time[i] = getTime();
-            err[i]++;
+            err[i] = 1;
             sendMessage(false, item, i);
-          } else {
-            err[i]++;
           }
           console.log('ERROR : ' + item);
         }
@@ -72,17 +71,15 @@ function checkGov(){
     .then(({statusCode, body, headers}) => {
       if (statusCode == 200) {
         if (err[2] != 0){
-          err[2] == 0;
+          err[2] = 0;
           sendMessage(true, 'http://dom.e-yakutia.ru', 2)
         }
         console.log("OK : " + 'http://dom.e-yakutia.ru');
       } else {
         if (err[2] == 0) {
           time[2] = getTime();
-          err[2]++;
+          err[2] = 1;
           sendMessage(false, 'http://dom.e-yakutia.ru', 2);
-        } else {
-          err[2]++;
         }
       }
     })
@@ -90,10 +87,8 @@ function checkGov(){
       console.log(e);
       if (err[2] == 0) {
         time[2] = getTime();
-        err[2]++;
+        err[2] = 1;
         sendMessage(false, 'http://dom.e-yakutia.ru', 2);
-      } else {
-        err[2]++;
       }
     });
     console.log("------------------------------------");  
