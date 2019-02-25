@@ -61,7 +61,7 @@ function checkGov(){
             err[i] = 1;
             sendMessage(false, item, i);
           }
-          console.log('ERROR : ' + item);
+          console.log('ERROR : ' + error + ' | StatusCode : ' + response.statusCode + ' | ' + item);
         }
       });
     });
