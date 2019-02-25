@@ -49,7 +49,7 @@ function checkGov(){
   
   if (service == false) {
     url.forEach(function(item, i, url) {
-      request(item, function (error, response, body) {
+      request(item, {timeout: 10000}, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           if (err[i] != 0){
             err[i] = 0;
