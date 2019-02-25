@@ -10,7 +10,8 @@ var service = false;
 var time = [0, 0, 0];
 var err = [0, 0, 0];
 
-bot.sendMessage('Бот запущен!');
+bot.sendMessage('337277275', 'Бот запущен!');
+console.log('Запуск');
 /*bot.on('message', (msg) => {
   const chatId = msg.chat.id;
 
