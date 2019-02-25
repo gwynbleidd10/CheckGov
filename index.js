@@ -98,4 +98,4 @@ function checkGov(){
   }
 };
 
-setInterval(checkGov, 60000);
+setInterval(checkGov, 300000);
