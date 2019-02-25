@@ -9,6 +9,8 @@ const Curl = require( 'curl-request' );
 var service = false;
 var time = [0, 0, 0];
 var err = [0, 0, 0];
+var tmpErr;
+var tmpSC;
 
 bot.sendMessage('337277275', 'Бот запущен!');
 console.log('Запуск');
@@ -46,6 +48,7 @@ function sendMessage(status, site, id){
 }
   
 function checkGov(){
+  
   if (service == false) {
     url.forEach(function(item, i, url) {
       request(item, function (error, response, body) {
@@ -56,12 +59,14 @@ function checkGov(){
           }
           console.log("OK : " + item);
         } else {
+          tmpErr = error;
+          tmpSC = response.statusCode;
           if (err[i] == 0) {
             time[i] = getTime();
             err[i] = 1;
             sendMessage(false, item, i);
           }
-          console.log('ERROR : ' + error + ' | StatusCode : ' + response.statusCode + ' | ' + item);
+          console.log('ERROR : ' + tmpErr + ' | StatusCode : ' + tmpSC + ' | ' + item);
         }
       });
     });
@@ -97,4 +102,4 @@ function checkGov(){
   }
 };
 
-setInterval(checkGov, 120000);
+setInterval(checkGov, 60000);
