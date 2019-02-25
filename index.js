@@ -57,12 +57,15 @@ function checkGov(){
           }
           console.log("OK : " + item);
         } else {
-          if (err[i] == 0) {
+          if (error == 'Error: ETIMEDOUT'){
+          } else {
+            if (err[i] == 0) {
             time[i] = getTime();
             err[i] = 1;
             sendMessage(false, item, i);
+            }
+            console.log('ERROR : ' + error + ' | ' + item);
           }
-          console.log('ERROR : ' + error + ' | ' + item);
         }
       });
     });
