@@ -23,6 +23,7 @@ function pingCheck(){
             result += `\nFailed to ping ${item}`;
         })
     });
+    console.log(result);
     return result;
 }
 //775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY
