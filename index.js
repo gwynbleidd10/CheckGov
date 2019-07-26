@@ -16,11 +16,11 @@ function pingCheck(){
         ping(item, 80)
         .then(time => {
             console.log(`${item} time: ${time}ms`);
-            result += `\n${item} time: ${time}ms`;
+            result.concat(`\n${item} time: ${time}ms`);
         })
         .catch(() => {
             console.log(`Failed to ping ${item}`);
-            result += `\nFailed to ping ${item}`;
+            result.concat(`\nFailed to ping ${item}`);
         })
     });
     console.log(result);
