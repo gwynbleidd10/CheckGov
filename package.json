@@ -3,10 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "curl-request": "^1.1.1",
     "node-http-ping": "^0.3.1",
     "node-telegram-bot-api": "^0.30.0",
-    "request": "^2.88.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -14,7 +12,7 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "https://github.com/yagop/node-telegram-bot-api",
+  "description": "",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gwynbleidd10/CheckGov.git"
