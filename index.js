@@ -25,3 +25,4 @@ function pingCheck(){
     });
     return result;
 }
+//775773770:AAFKmqPkw4MgOhSPjzdxFjG_NRxjnLZXbmY
