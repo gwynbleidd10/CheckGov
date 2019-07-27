@@ -50,7 +50,7 @@ function sendMessage(){
                     str += `\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <i>Не овечает</i>`;
                 }
             });
-            bot.sendMessage(arguments[1], str, {parse_mode : "HTML"});
+            bot.sendMessage(arguments[1], str, {disable_web_page_preview : true, parse_mode : "HTML"});
             break;
         case 'service':
             str = '<b>Техобслуживание</b>: ';
