@@ -20,8 +20,8 @@ server.get('/', function (req, res) {
     res.send('Hello World!');
 });
   
-server.listen(process.env.BOT, function () {
-    console.log(`Сервер запущен на ${process.env.BOT} порту`);
+server.listen(process.env.PORT, function () {
+    console.log(`Сервер запущен на ${process.env.PORT} порту`);
 });
 
 pingCheck("timer");
