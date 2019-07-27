@@ -142,4 +142,4 @@ function getTime() {
     return new Date().toLocaleDateString('ru', {timeZone: 'Asia/Yakutsk', hour: 'numeric', minute: 'numeric'});
 }
 
-setInterval(pingCheck, 5000, "timer");
+setInterval(pingCheck, 30000, "timer");
