@@ -24,8 +24,7 @@ bot.onText(/\/status/, function (msg) {
 bot.onText(/\/service/, function (msg) { 
     if (admins.includes(msg.from.id.toString())){
         service = !service;
-        console.log(`<a href="tg://user?id=${msg.from.id}">${msg.from.first_name} ${msg.from.last_name}</a>`);
-        sendMessage("service",  `<a href="tg://user?id=${msg.from.id}">${msg.from.first_name} ${msg.from.last_name}</a>`);  
+        sendMessage("service",  msg.from.id, msg.from.first_name, msg.from.last_name);  
     }
     else
     {
@@ -58,8 +57,8 @@ function sendMessage(){
                 str += '<code>Включен</code>';
             else
                 str += '<code>Выключен</code>';
-            str += ` пользователем ${test}`;
-            bot.sendMessage(arguments[1], str, {parse_mode : "HTML"});
+            str += ` пользователем <a href="tg://user?id=${arguments[1]}">${arguments[2]} ${arguments[3]}</a>`;
+            bot.sendMessage(codChat, str, {parse_mode : "HTML"});
             console.log("service"); 
             break;
         case 'on':
