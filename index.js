@@ -3,7 +3,7 @@ const ping = require('node-http-ping')
 const TelegramBot = require('node-telegram-bot-api');
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
-const chat = '337277275';
+const chat = '-351121754';
 
 var url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru', 'max.0code.pro'];
 var ms = [0, 0, 0, 0];
