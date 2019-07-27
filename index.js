@@ -14,6 +14,7 @@ console.log("Бот запущен!");
 bot.onText(/\/status/, function (msg) {
     str = 'Статус сайтов:'; 
     status();    
+    console.log(msg.chat.id);
     console.log(ms);
 });
 
