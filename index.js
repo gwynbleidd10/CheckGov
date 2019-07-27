@@ -9,7 +9,7 @@ const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru', 'max.0code.pro'
 const admins = ['3372772756'];
 
 var ms = [0, 0, 0, 0];
-var str = '', chat = '';
+var str = ''; var chat = '';
 var service = false;    //БАЗА
 
 console.log("Бот запущен!");
