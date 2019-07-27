@@ -1,2 +1,1 @@
-TeleGov: node index.js
-Web2: web index.js
+web: node index.js
