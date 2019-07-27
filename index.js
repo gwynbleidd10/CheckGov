@@ -58,7 +58,7 @@ function sendMessage(){
             else
                 str += '<code>Выключен</code>';
             str += ` пользователем ${arguments[1]}`;
-            //bot.sendMessage(codChat, str, {parse_mode : "HTML"});
+            bot.sendMessage(codChat, str, {parse_mode : "HTML"});
             console.log("service"); 
             break;
         case 'on':
