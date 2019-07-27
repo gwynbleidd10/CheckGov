@@ -5,7 +5,7 @@ const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 
 const codChat = '-1001487748065';
-const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru'];
+const url = ['https://sakha.gov.ru', 'e-yakutia.ru', 'https://dom.e-yakutia.ru'];
 const admins = ['337277275'];
 
 var ms = [0, 0, 0], count = [0, 0, 0], err = [false, false, false];
@@ -123,7 +123,7 @@ function func(){
 async function pingCheck(){
     if (!service || arguments[0] == 'status'){
         for (item of url) {
-            await ping("https://" + item)
+            await ping(item)
             .then(time => {
                 console.log(`${item} time: ${time}ms`);       
                 ms[url.indexOf(item)] = time;  
