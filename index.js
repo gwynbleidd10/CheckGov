@@ -25,6 +25,7 @@ bot.onText(/\/service/, function (msg) {
     if (admins.includes(msg.from.id.toString())){
         service = !service;
         test = msg.from.username;
+        console.log(msg.from);
         sendMessage("service", msg.from.id);  
     }
     else
