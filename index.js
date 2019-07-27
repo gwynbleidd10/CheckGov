@@ -24,8 +24,8 @@ bot.onText(/\/status/, function (msg) {
 bot.onText(/\/service/, function (msg) { 
     if (admins.includes(msg.from.id.toString())){
         service = !service;
-        test = msg.from.username;
-        console.log(msg.from);
+        test = "mention:" + msg.from.id;
+        console.log(test);
         sendMessage("service", msg.from.id);  
     }
     else
