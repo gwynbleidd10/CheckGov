@@ -38,12 +38,12 @@ bot.onText(/\/service/, function (msg) {
 function sendMessage(){    
     switch(arguments[0]) {
         case 'status':
-            str = '<b>Техобслуживание: </b>:';
+            str = '<b>Техобслуживание: </b>';
             if (service)
                 str += '<i>Включено</i>';
             else
                 str += '<i>Выключено</i>';
-            str += '\n\n<b>Статус сайтов</b>:';
+            str += '\n\n<b>Статус сайтов: </b>';
             ms.forEach(function(item, i){
                 if (item != '0'){
                     str += `\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <i>${item}ms</i>`;
