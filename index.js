@@ -24,7 +24,7 @@ bot.onText(/\/status/, function (msg) {
 bot.onText(/\/service/, function (msg) { 
     if (admins.includes(msg.from.id.toString())){
         service = !service;
-        test = msg.chat.username();
+        test = "[NET. Gwyn](tg://user?id=337277275)";
         console.log(test);
         sendMessage("service", msg.from.id);  
     }
@@ -60,7 +60,7 @@ function sendMessage(){
             else
                 str += '<code>Выключен</code>';
             str += ` пользователем ${test}`;
-            bot.sendMessage(codChat, str, {parse_mode : "HTML"});
+            bot.sendMessage(codChat, str, {parse_mode : "Markdown"});
             console.log("service"); 
             break;
         case 'on':
