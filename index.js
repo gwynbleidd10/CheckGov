@@ -39,6 +39,10 @@ bot.onText(/\/service/, function (msg) {
 */
 
 function sendMessage(){    
+    if (chat == ''){
+        chat = codChat;
+    }
+    
     switch(arguments[0]) {
         case 'status':
             str = 'Статус сайтов:\n';
@@ -73,6 +77,7 @@ function sendMessage(){
             break;
     }
     bot.sendMessage(chat, str, {parse_mode : "HTML"});
+    chat = '';
     console.log("Сообщение: " + str + ", успешно отправлено!");
 }
 
