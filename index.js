@@ -52,11 +52,11 @@ function sendMessage(){
             bot.sendMessage(arguments[1], str, {parse_mode : "HTML"});
             break;
         case 'service':
-            str = 'Режим техобслуживания: ';
+            str = 'Техобслуживание: ';
             if (service)
-                str += '<code>Включен</code>';
+                str += '<code>Включено</code>';
             else
-                str += '<code>Выключен</code>';
+                str += '<code>Выключено</code>';
             str += ` пользователем <a href="tg://user?id=${arguments[1]}">${arguments[2]} ${arguments[3]}</a>`;
             bot.sendMessage(codChat, str, {parse_mode : "HTML"});
             console.log("service"); 
