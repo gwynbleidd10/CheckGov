@@ -6,6 +6,7 @@ const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 const server = express();
 
+const port = process.env.PORT || 8080; 
 const codChat = '-1001487748065';
 const url = ['https://sakha.gov.ru', 'http://e-yakutia.ru', 'https://dom.e-yakutia.ru'];
 const admins = ['337277275'];
@@ -20,8 +21,8 @@ server.get('/', function (req, res) {
     res.send('Hello World!');
 });
   
-server.listen(process.env.PORT, function () {
-    console.log(`Сервер запущен на ${process.env.PORT} порту`);
+server.listen(port, function () {
+    console.log(`Сервер запущен на ${port} порту`);
 });
 
 pingCheck("timer");
