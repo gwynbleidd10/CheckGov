@@ -5,7 +5,7 @@ const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 
 const codChat = '-1001487748065';
-const url = ['https://sakha.gov.ru', 'e-yakutia.ru', 'https://dom.e-yakutia.ru'];
+const url = ['https://sakha.gov.ru', 'http://e-yakutia.ru', 'https://dom.e-yakutia.ru'];
 const admins = ['337277275'];
 
 var ms = [0, 0, 0], count = [0, 0, 0], err = [false, false, false];
