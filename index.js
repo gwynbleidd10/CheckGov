@@ -3,18 +3,18 @@ const ping = require('node-http-ping')
 const TelegramBot = require('node-telegram-bot-api');
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
-const chat = '-351121754';
 
+var chat = '-351121754';
 var url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru', 'max.0code.pro'];
 var ms = [0, 0, 0, 0];
-var str = 'Статус сайтов:';  
+var str = 'Статус сайтов:';
 
 console.log("Бот запущен!");
 
 bot.onText(/\/status/, function (msg) {
     str = 'Статус сайтов:'; 
     status();    
-    console.log(msg.chat.id);
+    chat = msg.chat.id;
     console.log(ms);
 });
 
@@ -34,7 +34,7 @@ function strConfirm(){
 
 async function status(){
     for (item of url) {
-        await ping("https://" + item)
+        await ping(item)
         .then(time => {
             console.log(`${item} time: ${time}ms`);       
             ms[url.indexOf(item)] = time;  
