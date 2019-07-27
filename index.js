@@ -6,13 +6,14 @@ const bot = new TelegramBot(token, {polling: true});
 
 var url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru', 'max.0code.pro'];
 var ms = [0, 0, 0, 0];
+var str = 'Статус сайтов:';  
 
 console.log("Бот запущен!");
 
 bot.onText(/\/status/, function (msg) {
+    str = 'Статус сайтов:'; 
     status();    
     console.log(ms);
-    var str = 'Статус сайтов:';  
 });
 
 function strConfirm(){    
