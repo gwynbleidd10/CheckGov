@@ -13,7 +13,7 @@ var count = [0, 0, 0, 0];
 var err = [false, false, false, false];
 var str = '';
 var service = false;    //БАЗА
-var test;
+
 console.log("Бот запущен!");
 pingCheck("timer");
 
@@ -24,9 +24,7 @@ bot.onText(/\/status/, function (msg) {
 bot.onText(/\/service/, function (msg) { 
     if (admins.includes(msg.from.id.toString())){
         service = !service;
-        test = "[NET. Gwyn](tg://user?id=337277275)";
-        console.log(test);
-        sendMessage("service", msg.from.id);  
+        sendMessage("service",  `<a href="tg://user?id=${msg.from.id}">${msg.from.first_name} ${msg.from.last_name}</a>`);  
     }
     else
     {
@@ -60,7 +58,7 @@ function sendMessage(){
             else
                 str += '<code>Выключен</code>';
             str += ` пользователем ${test}`;
-            bot.sendMessage(codChat, str, {parse_mode : "Markdown"});
+            bot.sendMessage(arguments[1], str, {parse_mode : "HTML"});
             console.log("service"); 
             break;
         case 'on':
