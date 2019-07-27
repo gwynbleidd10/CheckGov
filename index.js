@@ -16,11 +16,11 @@ var service = false;    //БАЗА
 
 console.log("Бот запущен!");
 
-app.get('/', function (req, res) {
+server.get('/', function (req, res) {
     res.send('Hello World!');
 });
   
-app.listen(process.env.BOT, function () {
+server.listen(process.env.BOT, function () {
     console.log(`Сервер запущен на ${process.env.BOT} порту`);
 });
 
