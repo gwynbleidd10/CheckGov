@@ -1,8 +1,10 @@
 const ping = require('node-http-ping')
 const TelegramBot = require('node-telegram-bot-api');
+const express = require('express');
 process.env.NTBA_FIX_319 = 1;
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
+const server = express();
 
 const codChat = '-1001487748065';
 const url = ['https://sakha.gov.ru', 'http://e-yakutia.ru', 'https://dom.e-yakutia.ru'];
@@ -13,6 +15,15 @@ var str = '';
 var service = false;    //БАЗА
 
 console.log("Бот запущен!");
+
+app.get('/', function (req, res) {
+    res.send('Hello World!');
+});
+  
+app.listen(process.env.BOT, function () {
+    console.log(`Сервер запущен на ${process.env.BOT} порту`);
+});
+
 pingCheck("timer");
 
 bot.onText(/\/status/, function (msg) {           
@@ -126,6 +137,7 @@ function func(){
 */
 
 async function pingCheck(){
+    console.log('timer');
     if (!service || arguments[0] == 'status'){
         for (item of url) {
             await ping(item)
