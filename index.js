@@ -4,7 +4,7 @@ process.env.NTBA_FIX_319 = 1;
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 
-const codChat = '-351121754';
+const codChat = '-1001487748065';
 const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru', 'max.0code.pro'];
 const admins = ['337277275'];
 
