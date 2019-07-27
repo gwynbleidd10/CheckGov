@@ -9,12 +9,13 @@ const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru', 'max.0code.pro'
 const admins = ['337277275'];
 
 var ms = [0, 0, 0, 0];
+var count = [0, 0, 0, 0];
+var err = [false, false, false, false];
 var str = '', chat = '';
 var service = false;    //БАЗА
 
 console.log("Бот запущен!");
 pingCheck("timer");
-
 
 bot.onText(/\/status/, function (msg) {           
     chat = msg.chat.id;
@@ -37,8 +38,8 @@ bot.onText(/\/service/, function (msg) {
 *   Формирование и отправка сообщения
 */
 
-function sendMessage(type){    
-    switch(type) {
+function sendMessage(){    
+    switch(arguments[0]) {
         case 'status':
             str = 'Статус сайтов:\n';
             ms.forEach(function(item, i){
@@ -58,11 +59,17 @@ function sendMessage(type){
             else
                 str += '<code>Выключен</code>';
             break;
-        case 'check':
-            console.log('timer');
+        case 'on':
+            str = `Восстановлено соединение с:\n\n<a href=\"https://${url[arguments[1]]}/\">${url[arguments[1]]}</a>`; 
+            console.log("on");           
             break;
-        case 'cod':
-            console.log('cod');
+        case 'off':
+            str = `Потеряно соединение с:\n\n<a href=\"https://${url[arguments[1]]}/\">${url[arguments[1]]}</a>`;
+            console.log("off");
+            break;
+        default:
+            console.log('default');
+            
             break;
     }
     bot.sendMessage(chat, str, {parse_mode : "HTML"});
@@ -75,18 +82,41 @@ function sendMessage(type){
 
 function func(type){
     switch(type) {
+        case 'status':
+            sendMessage('status')
+            break;
         case 'timer':
-
-
-
-
-            sendMessage(type);
-            break;
-        case 'cod':
-            console.log("cod");
-            break;
-        default:
-            sendMessage(type);
+            if (!service){
+                ms.forEach(function(item, i){
+                   if (ms[i] == 0){
+                       //Пинг = 0
+                       if (!err[i]){
+                            if (count[i] > 9){
+                                err[i] = !err[i]; 
+                                sendMessage("off", i);
+                            }
+                            else
+                            {
+                                count[i]++; 
+                            }                           
+                       }
+                   }
+                   else
+                   {
+                        //Пинг > 0
+                        count[i] = 0;
+                        if (err[i]){
+                            //Есть ошибка
+                            err[i] = !err[i];
+                            //Меняем статус
+                            sendMessage("on", i);
+                        }
+                   }
+                   console.log(err);
+                   console.log(count);
+                });
+            }           
+            break;        
     }    
 }
 
@@ -94,7 +124,7 @@ function func(type){
 *   Проверка доступности сайтов
 */
 
-async function pingCheck(type){
+async function pingCheck(){
     for (item of url) {
         await ping(item)
         .then(time => {
@@ -106,8 +136,15 @@ async function pingCheck(type){
             ms[url.indexOf(item)] = 0;  
         });        
     }
-    console.log(type);
-    func(type);
+    func(arguments[0]);
 }
 
-//setInterval(pingCheck("timer"), 5000);
+/*
+*   Получение даты
+*/
+console.log(getTime());
+function getTime() {
+    return new Date().toLocaleDateString('ru', {timeZone: 'Asia/Yakutsk', hour: 'numeric', minute: 'numeric'});
+}
+
+setInterval(pingCheck, 5000, "timer");
