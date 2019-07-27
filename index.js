@@ -21,7 +21,8 @@ bot.onText(/\/status/, function (msg) {
     pingCheck("status", msg.chat.id);  
 });
 
-bot.onText(/\/service/, function (msg) { 
+bot.onText(/\/service/, function (msg) {
+    console.log(msg.chat.id);
     if (admins.includes(msg.from.id.toString())){
         service = !service;
         sendMessage("service",  msg.from.id, msg.from.first_name, msg.from.last_name);  
