@@ -53,7 +53,7 @@ function sendMessage(){
             bot.sendMessage(arguments[1], str, {parse_mode : "HTML"});
             break;
         case 'service':
-            str = '<b>Техобслуживание<b>: ';
+            str = '<b>Техобслуживание</b>: ';
             if (service)
                 str += '<i>Включено</i>';
             else
