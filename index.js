@@ -38,26 +38,26 @@ bot.onText(/\/service/, function (msg) {
 function sendMessage(){    
     switch(arguments[0]) {
         case 'status':
-            str = 'Статус техобслуживания:\n';
-            str += '\n' + service;
-            str += '\nСтатус сайтов:\n';
+            str = '<b>Статус техобслуживания</b>:\n';
+            str += '\n<i>' + service + '</i>';
+            str += '\n\n<b>Статус сайтов</b>:\n';
             ms.forEach(function(item, i){
                 if (item != '0'){
-                    str += `\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <code>${item}ms</code>`;
+                    str += `\n<i><a href=\"https://${url[i]}/\">${url[i]}</a> - ${item}ms</i>`;
                 }
                 else
                 {
-                    str += `\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <code>Не овечает</code>`;
+                    str += `\n<i><a href=\"https://${url[i]}/\">${url[i]}</a> - Не овечает</i>`;
                 }
             });
             bot.sendMessage(arguments[1], str, {parse_mode : "HTML"});
             break;
         case 'service':
-            str = 'Техобслуживание: ';
+            str = '<b>Техобслуживание<b>: ';
             if (service)
-                str += '<code>Включено</code>';
+                str += '<i>Включено</i>';
             else
-                str += '<code>Выключено</code>';
+                str += '<i>Выключено</i>';
             str += ` пользователем <a href="tg://user?id=${arguments[1]}">${arguments[2]} ${arguments[3]}</a>`;
             bot.sendMessage(codChat, str, {parse_mode : "HTML"});
             console.log("service"); 
