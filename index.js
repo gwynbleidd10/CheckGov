@@ -6,10 +6,10 @@ const bot = new TelegramBot(token, {polling: true});
 
 const codChat = '-351121754';
 const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru', 'max.0code.pro'];
-const admins = ['3372772756'];
+const admins = ['337277275'];
 
 var ms = [0, 0, 0, 0];
-var str = ''; var chat = '';
+var str = '', chat = '';
 var service = false;    //БАЗА
 
 console.log("Бот запущен!");
