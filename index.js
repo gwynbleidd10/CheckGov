@@ -11,26 +11,24 @@ const admins = ['337277275'];
 var ms = [0, 0, 0, 0];
 var count = [0, 0, 0, 0];
 var err = [false, false, false, false];
-var str = '', chat = '';
+var str = '';
 var service = false;    //БАЗА
 
 console.log("Бот запущен!");
 pingCheck("timer");
 
 bot.onText(/\/status/, function (msg) {           
-    chat = msg.chat.id;
-    pingCheck("status");  
+    pingCheck("status", msg.from.id);  
 });
 
 bot.onText(/\/service/, function (msg) { 
-    chat = msg.chat.id; 
     if (admins.includes(msg.from.id.toString())){
         service = !service;
-        sendMessage("service");  
+        sendMessage("service", msg.from.id);  
     }
     else
     {
-        bot.sendMessage(chat, "Вы не имеете необходимого уровня доступа для использования данной команды! Если это ошибка, обратитесь к администратору для добавления вашего id: <code>" + msg.from.id + "</code>", {parse_mode : "HTML"});
+        bot.sendMessage(msg.from.id, "Вы не имеете необходимого уровня доступа для использования данной команды! Если это ошибка, обратитесь к администратору для добавления вашего id: <code>" + msg.from.id + "</code>", {parse_mode : "HTML"});
     } 
 });
 
@@ -39,10 +37,6 @@ bot.onText(/\/service/, function (msg) {
 */
 
 function sendMessage(){    
-    if (chat == ''){
-        chat = codChat;
-    }
-    
     switch(arguments[0]) {
         case 'status':
             str = 'Статус сайтов:\n';
@@ -55,6 +49,7 @@ function sendMessage(){
                     str += `\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <code>Не овечает</code>`;
                 }
             });
+            bot.sendMessage(arguments[1], str, {parse_mode : "HTML"});
             break;
         case 'service':
             str = 'Режим техобслуживания: ';
@@ -62,13 +57,16 @@ function sendMessage(){
                 str += '<code>Включен</code>';
             else
                 str += '<code>Выключен</code>';
+            bot.sendMessage(arguments[1], str, {parse_mode : "HTML"});
             break;
         case 'on':
-            str = `Восстановлено соединение с:\n\n<a href=\"https://${url[arguments[1]]}/\">${url[arguments[1]]}</a>`; 
+            str = `Восстановлено соединение с:\n\n<a href=\"https://${url[arguments[2]]}/\">${url[arguments[2]]}</a>`;
+            bot.sendMessage(codChat, str, {parse_mode : "HTML"}); 
             console.log("on");           
             break;
         case 'off':
-            str = `Потеряно соединение с:\n\n<a href=\"https://${url[arguments[1]]}/\">${url[arguments[1]]}</a>`;
+            str = `Потеряно соединение с:\n\n<a href=\"https://${url[arguments[2]]}/\">${url[arguments[2]]}</a>`;
+            bot.sendMessage(codChat, str, {parse_mode : "HTML"});
             console.log("off");
             break;
         default:
@@ -76,29 +74,26 @@ function sendMessage(){
             
             break;
     }
-    bot.sendMessage(chat, str, {parse_mode : "HTML"});
-    chat = '';
-    console.log("Сообщение: " + str + ", успешно отправлено!");
+    console.log("Сообщение отправлено:\n" + str);
 }
 
 /*
 *   Проверки
 */
 
-function func(type){
-    switch(type) {
+function func(){
+    switch(arguments[0]) {
         case 'status':
-            sendMessage('status')
+            sendMessage('status', arguments[1])
             break;
         case 'timer':
             if (!service){
                 ms.forEach(function(item, i){
                    if (ms[i] == 0){
-                       //Пинг = 0
                        if (!err[i]){
                             if (count[i] > 9){
                                 err[i] = !err[i]; 
-                                sendMessage("off", i);
+                                sendMessage("off", arguments[1], i);
                             }
                             else
                             {
@@ -108,17 +103,12 @@ function func(type){
                    }
                    else
                    {
-                        //Пинг > 0
                         count[i] = 0;
                         if (err[i]){
-                            //Есть ошибка
                             err[i] = !err[i];
-                            //Меняем статус
-                            sendMessage("on", i);
+                            sendMessage("on", arguments[1], i);
                         }
                    }
-                   console.log(err);
-                   console.log(count);
                 });
             }           
             break;        
@@ -141,15 +131,15 @@ async function pingCheck(){
             ms[url.indexOf(item)] = 0;  
         });        
     }
-    func(arguments[0]);
+    func(arguments[0], arguments[1]);
 }
 
 /*
 *   Получение даты
 */
-console.log(getTime());
+//console.log(getTime());
 function getTime() {
     return new Date().toLocaleDateString('ru', {timeZone: 'Asia/Yakutsk', hour: 'numeric', minute: 'numeric'});
 }
 
-setInterval(pingCheck, 30000, "timer");
+setInterval(pingCheck, 5000, "timer");
