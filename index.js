@@ -38,7 +38,7 @@ bot.onText(/\/service/, function (msg) {
 function sendMessage(){    
     switch(arguments[0]) {
         case 'status':
-            str = '<b>Статус техобслуживания</b>:';
+            str = '<b>Техобслуживание: </b>:';
             if (service)
                 str += '<i>Включено</i>';
             else
