@@ -65,8 +65,8 @@ function sendMessage(type){
             console.log('cod');
             break;
     }
-    //bot.sendMessage(chat, str, {parse_mode : "HTML"});
-    console.log(str);
+    bot.sendMessage(chat, str, {parse_mode : "HTML"});
+    console.log("Сообщение: " + str + ", успешно отправлено!");
 }
 
 /*
