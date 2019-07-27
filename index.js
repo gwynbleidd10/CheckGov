@@ -24,7 +24,7 @@ bot.onText(/\/status/, function (msg) {
 bot.onText(/\/service/, function (msg) { 
     if (admins.includes(msg.from.id.toString())){
         service = !service;
-        test = bot.getChatMember(codChat, msg.from.id);
+        test = bot.getChatMember(codChat, msg.from.id).user;
         sendMessage("service", msg.from.id);  
     }
     else
