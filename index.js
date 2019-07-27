@@ -24,7 +24,7 @@ bot.onText(/\/status/, function (msg) {
 bot.onText(/\/service/, function (msg) { 
     if (admins.includes(msg.from.id.toString())){
         service = !service;
-        sendMessage("service", msg.chat.id);  
+        sendMessage("service", msg.from.id);  
     }
     else
     {
@@ -57,7 +57,9 @@ function sendMessage(){
                 str += '<code>Включен</code>';
             else
                 str += '<code>Выключен</code>';
-            bot.sendMessage(arguments[1], str, {parse_mode : "HTML"});
+            str += ` пользователем ${arguments[1]}`;
+            //bot.sendMessage(codChat, str, {parse_mode : "HTML"});
+            console.log("service"); 
             break;
         case 'on':
             str = `Восстановлено соединение с:\n\n<a href=\"https://${url[arguments[2]]}/\">${url[arguments[2]]}</a>`;
