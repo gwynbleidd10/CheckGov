@@ -3,6 +3,7 @@ const ping = require('node-http-ping')
 const TelegramBot = require('node-telegram-bot-api');
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
+const chat = '337277275';
 
 var url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru', 'max.0code.pro'];
 var ms = [0, 0, 0, 0];
@@ -13,7 +14,6 @@ console.log("Бот запущен!");
 bot.onText(/\/status/, function (msg) {
     str = 'Статус сайтов:'; 
     status();    
-    console.log(msg.chat.id);
     console.log(ms);
 });
 
@@ -27,7 +27,7 @@ function strConfirm(){
             str += `\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <code>Не овечает</code>`;
         }
     });
-    bot.sendMessage(msg.chat.id, str, {parse_mode : "HTML"});
+    bot.sendMessage(chat, str, {parse_mode : "HTML"});
     console.log(str);
 }
 
