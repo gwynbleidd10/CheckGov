@@ -23,8 +23,7 @@ bot.onText(/\/status/, function (msg) {
 
 bot.onText(/\/service/, function (msg) { 
     chat = msg.chat.id; 
-    console.log(admins.includes(msg.from.id.toString()));
-    if (admins.includes(msg.from.id)){
+    if (admins.includes(msg.from.id.toString())){
         service = !service;
         sendMessage("service");  
     }
