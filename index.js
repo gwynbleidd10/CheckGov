@@ -46,11 +46,11 @@ function sendMessage(){
             str += '\n\n<b>Статус сайтов: </b>';
             ms.forEach(function(item, i){
                 if (item != '0'){
-                    str += `\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <i>${item}ms</i>`;
+                    str += `\n\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <i>${item}ms</i>`;
                 }
                 else
                 {
-                    str += `\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <i>Не овечает</i>`;
+                    str += `\n\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <i>Не овечает</i>`;
                 }
             });
             bot.sendMessage(arguments[1], str, {disable_web_page_preview : true, parse_mode : "HTML"});
