@@ -24,6 +24,7 @@ bot.onText(/\/status/, function (msg) {
 bot.onText(/\/service/, function (msg) { 
     if (admins.includes(msg.from.id.toString())){
         service = !service;
+        console.log(`<a href="tg://user?id=${msg.from.id}">${msg.from.first_name} ${msg.from.last_name}</a>`);
         sendMessage("service",  `<a href="tg://user?id=${msg.from.id}">${msg.from.first_name} ${msg.from.last_name}</a>`);  
     }
     else
