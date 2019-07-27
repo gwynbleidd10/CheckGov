@@ -18,17 +18,17 @@ console.log("Бот запущен!");
 pingCheck("timer");
 
 bot.onText(/\/status/, function (msg) {           
-    pingCheck("status", msg.from.id);  
+    pingCheck("status", msg.chat.id);  
 });
 
 bot.onText(/\/service/, function (msg) { 
     if (admins.includes(msg.from.id.toString())){
         service = !service;
-        sendMessage("service", msg.from.id);  
+        sendMessage("service", msg.chat.id);  
     }
     else
     {
-        bot.sendMessage(msg.from.id, "Вы не имеете необходимого уровня доступа для использования данной команды! Если это ошибка, обратитесь к администратору для добавления вашего id: <code>" + msg.from.id + "</code>", {parse_mode : "HTML"});
+        bot.sendMessage(msg.chat.id, "Вы не имеете необходимого уровня доступа для использования данной команды! Если это ошибка, обратитесь к администратору для добавления вашего id: <code>" + msg.from.id + "</code>", {parse_mode : "HTML"});
     } 
 });
 
