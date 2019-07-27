@@ -120,18 +120,20 @@ function func(){
 */
 
 async function pingCheck(){
-    for (item of url) {
-        await ping(item)
-        .then(time => {
-            console.log(`${item} time: ${time}ms`);       
-            ms[url.indexOf(item)] = time;  
-        })
-        .catch(() => {
-            console.log(`Failed to ping ${item}`);
-            ms[url.indexOf(item)] = 0;  
-        });        
-    }
-    func(arguments[0], arguments[1]);
+    if (!service || arguments[0] == 'status'){
+        for (item of url) {
+            await ping(item)
+            .then(time => {
+                console.log(`${item} time: ${time}ms`);       
+                ms[url.indexOf(item)] = time;  
+            })
+            .catch(() => {
+                console.log(`Failed to ping ${item}`);
+                ms[url.indexOf(item)] = 0;  
+            });        
+        }
+        func(arguments[0], arguments[1]);
+    }    
 }
 
 /*
