@@ -31,7 +31,7 @@ server.get('/', function (req, res) {
 server.post('/', function (req, res) {
     var data = req.body;
     res.send(req.body);
-    console.log(data['variable-set']['variable']);
+    console.log(data);
 });
   
 server.listen(port, function () {
