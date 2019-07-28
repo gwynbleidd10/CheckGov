@@ -23,6 +23,21 @@ const admins = ['337277275'];
 var ms = [0, 0, 0], count = [0, 0, 0], err = [false, false, false];
 var str = '';
 var service = false;    //БАЗА
+var options = {
+    attributeNamePrefix : "@_",
+    attrNodeName: "attr", //default is 'false'
+    textNodeName : "text",
+    ignoreAttributes : false,
+    ignoreNameSpace : false,
+    allowBooleanAttributes : false,
+    parseNodeValue : true,
+    parseAttributeValue : false,
+    trimValues: true,
+    cdataTagName: "__cdata", //default is 'false'
+    cdataPositionChar: "\\c",
+    localeRange: "", //To support non english character in tag/attribute values.
+    parseTrueNumberOnly: false
+};
 
 /*
 *   Запуск
@@ -50,7 +65,8 @@ server.get('/', function (req, res) {
 
 server.post('/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
-    var body, jsonObj;
+    var body = '', jsonObj;
+    console.log(body);
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
       console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
       file.on('data', function(data) {
@@ -59,14 +75,14 @@ server.post('/', function (req, res) {
       });
       file.on('end', function() {
         console.log('File [' + fieldname + '] Finished');
-        console.log(body.toString());
-        jsonObj = parser.parse(body.toString());
-        console.log(jsonObj);
+        jsonObj = parser.parse(body, options);
+        //console.log(body);    Debug        
+        //console.log(jsonObj); Debug
       });
     });
     busboy.on('finish', function() {
       console.log('Done parsing form!');
-      //console.log(jsonObj);
+      console.log(jsonObj["variable-set"]);
       res.send(jsonObj);
     });
     req.pipe(busboy);
