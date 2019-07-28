@@ -17,6 +17,9 @@ var service = false;    //БАЗА
 
 console.log("Бот запущен!");
 
+server.use(express.urlencoded());
+server.use(express.json());
+
 server.get('/', function (req, res) {
     res.send('Hello World!');
 });
