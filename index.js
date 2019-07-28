@@ -27,7 +27,7 @@ var options = {
     attributeNamePrefix : "@_",
     attrNodeName: "attr", //default is 'false'
     textNodeName : "text",
-    ignoreAttributes : false,
+    ignoreAttributes : true,
     ignoreNameSpace : false,
     allowBooleanAttributes : false,
     parseNodeValue : true,
@@ -82,7 +82,7 @@ server.post('/', function (req, res) {
     });
     busboy.on('finish', function() {
       console.log('Done parsing form!');
-      console.log(jsonObj["variable-set"]);
+      console.log(jsonObj["variable-set"]["variable"][0]['nls-string-val']);
       res.send(jsonObj);
     });
     req.pipe(busboy);
