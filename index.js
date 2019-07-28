@@ -29,8 +29,16 @@ server.get('/', function (req, res) {
 });
 
 server.post('/', function (req, res) {
-    console.log(req.headers);
-    console.log('--------------------------------------')
+    var body = '';
+    req.on('data', function(data) {
+        body += data;
+    });
+
+    req.on('end', function (){
+           console.log(body);
+           res.end('Successfully Posted');
+    });
+    
     var data = req.body;
     res.send(req.body);
     console.log(data);
