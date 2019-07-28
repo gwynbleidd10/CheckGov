@@ -83,7 +83,7 @@ server.post('/', function (req, res) {
     busboy.on('finish', function() {
       console.log('Done parsing form!');
       //console.log(jsonObj["variable-set"]["variable"][7]['u32-val']);   //Тип запроса
-      console.log(jsonObj["variable-set"]["variable"][7]['metadata'][1]["nls-string-list-val"]["nls-string-val"][jsonObj["variable-set"]["variable"][7]['u32-val'] - 1] + " - " + jsonObj["variable-set"]["variable"][7]['u32-val'] + "\n");
+      console.log(jsonObj["variable-set"]["variable"][7]['metadata'][1]["nls-string-list-val"]["nls-string-val"][jsonObj["variable-set"]["variable"][7]['u32-val'] - 1] + " - " + jsonObj["variable-set"]["variable"][0]['nls-string-val'] + "\n");
       console.log(jsonObj["variable-set"]["variable"][7]['metadata'][2]["struct-val"]["struct-element"][2]["string-val"]);
       res.send(jsonObj);
     });
