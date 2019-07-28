@@ -1,5 +1,6 @@
 const ping = require('node-http-ping')
 const TelegramBot = require('node-telegram-bot-api');
+const xmlparser = require('express-xml-bodyparser');
 const express = require('express');
 process.env.NTBA_FIX_319 = 1;
 const token = process.env.BOT_TOKEN;
@@ -17,6 +18,7 @@ var service = false;    //БАЗА
 
 console.log("Бот запущен!");
 
+server.use(xmlparser());
 server.use(express.json());
 server.use(express.urlencoded({
     extended: true
@@ -27,15 +29,9 @@ server.get('/', function (req, res) {
 });
 
 server.post('/', function (req, res) {
-    var body = '';
-    req.on('data', function(data) {
-        body += data;
-    });
-
-    req.on('end', function (){
-           console.log(body);
-           res.end('Successfully Posted');
-    });
+    var data = req.body;
+    res.send(req.body);
+    console.log(data['variable-set']['variable']);
 });
   
 server.listen(port, function () {
