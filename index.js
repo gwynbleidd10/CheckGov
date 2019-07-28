@@ -20,6 +20,10 @@ console.log("Бот запущен!");
 server.get('/', function (req, res) {
     res.send('Hello World!');
 });
+
+server.post('/', function (req, res) {
+    console.log(req);
+});
   
 server.listen(port, function () {
     console.log(`Сервер запущен на ${port} порту`);
