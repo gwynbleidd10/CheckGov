@@ -22,7 +22,7 @@ server.get('/', function (req, res) {
 });
 
 server.post('/', function (req, res) {
-    console.log(req.headers);
+    console.log(req.body);
 });
   
 server.listen(port, function () {
