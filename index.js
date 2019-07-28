@@ -1,6 +1,6 @@
 const ping = require('node-http-ping')
 const TelegramBot = require('node-telegram-bot-api');
-const xmlparser = require('express-xml-bodyparser');
+//const xmlparser = require('express-xml-bodyparser');
 const express = require('express');
 process.env.NTBA_FIX_319 = 1;
 const token = process.env.BOT_TOKEN;
@@ -39,9 +39,9 @@ server.post('/', function (req, res) {
            res.end('Successfully Posted');
     });
 
-    var data = req.body;
-    res.send(req.body);
-    console.log(data);
+    //var data = req.body;
+    //res.send(req.body);
+    //console.log(data);
 });
   
 server.listen(port, function () {
