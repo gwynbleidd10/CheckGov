@@ -18,7 +18,7 @@ var service = false;    //БАЗА
 
 console.log("Бот запущен!");
 
-server.use(xmlparser());
+//server.use(xmlparser());
 server.use(express.json());
 server.use(express.urlencoded({
     extended: true
@@ -38,7 +38,7 @@ server.post('/', function (req, res) {
            console.log(body);
            res.end('Successfully Posted');
     });
-    
+
     var data = req.body;
     res.send(req.body);
     console.log(data);
