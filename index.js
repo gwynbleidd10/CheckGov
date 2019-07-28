@@ -69,11 +69,11 @@ server.post('/', function (req, res) {
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
       console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
       file.on('data', function(data) {
-        console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
+        //console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
         body += data;
       });
       file.on('end', function() {
-        console.log('File [' + fieldname + '] Finished');
+        console.log('File [' + fieldname + '] got ' + body.length + ' bytes');
         jsonObj = parser.parse(body, options);
         //console.log(body);    Debug        
         //console.log(jsonObj); Debug
