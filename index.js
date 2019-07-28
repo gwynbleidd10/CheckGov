@@ -66,7 +66,6 @@ server.get('/', function (req, res) {
 server.post('/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
     var body = '', jsonObj;
-    console.log(body);
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
       console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
       file.on('data', function(data) {
@@ -84,8 +83,8 @@ server.post('/', function (req, res) {
       console.log('Done parsing form!');
       //console.log(jsonObj["variable-set"]["variable"][7]['u32-val']);   //Тип запроса
       console.log(jsonObj["variable-set"]["variable"][7]['metadata'][1]["nls-string-list-val"]["nls-string-val"][jsonObj["variable-set"]["variable"][7]['u32-val'] - 1] + " - " + jsonObj["variable-set"]["variable"][0]['nls-string-val'] + "\n");
-      console.log(jsonObj["variable-set"]["variable"][7]['metadata'][2]["struct-val"]["struct-element"][2]["string-val"]);
-      console.log(jsonObj["variable-set"]["variable"][6]['struct-val']["struct-element"][4]["nls-string-val"]);
+      console.log(jsonObj["variable-set"]["variable"][7]['metadata'][2]["struct-val"]["struct-element"][2]["string-val"] + "\n");
+      console.log(jsonObj["variable-set"]["variable"][6]['struct-val']["struct-element"][4]["nls-string-val"] + "\n");
       res.send(jsonObj);
     });
     req.pipe(busboy);
