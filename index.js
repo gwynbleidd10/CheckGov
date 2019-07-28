@@ -88,7 +88,7 @@ server.post('/', function (req, res) {
       res.send(jsonObj);
     });
     req.pipe(busboy);
-    console.log(`\n${req.headers['content-type']}\n`);
+    //console.log(`\n${req.headers['content-type']}\n`);
     //console.log(data['variable-set']['variable'][1]['metadata']);
 });
   
