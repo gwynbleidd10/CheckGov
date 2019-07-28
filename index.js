@@ -17,17 +17,25 @@ var service = false;    //БАЗА
 
 console.log("Бот запущен!");
 
+server.use(express.json());
 server.use(express.urlencoded({
     extended: true
-  }));
-server.use(express.json());
+}));
 
 server.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
 server.post('/', function (req, res) {
-    console.log(req.body);
+    var body = '';
+    req.on('data', function(data) {
+        body += data;
+    });
+
+    req.on('end', function (){
+           console.log(body);
+           res.end('Successfully Posted');
+    });
 });
   
 server.listen(port, function () {
