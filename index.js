@@ -2,6 +2,7 @@ const ping = require('node-http-ping')
 const TelegramBot = require('node-telegram-bot-api');
 const xmlparser = require('express-xml-bodyparser');
 const express = require('express');
+
 process.env.NTBA_FIX_319 = 1;
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
@@ -29,22 +30,11 @@ server.get('/', function (req, res) {
 });
 
 server.post('/', function (req, res) {
-    /*
-    var body = '';
-    req.on('data', function(data) {
-        body += data;
-    });
-
-    req.on('end', function (){
-           console.log(body);
-           res.end('Successfully Posted');
-    });
-    */
-
     var data = req.body;
-    //res.send(req.body);
+    //res.send(data);
     res.send('Successfully Posted');
-    console.log(data);
+    console.log(data + "\n--------------------------------------------------------");
+    console.log(data['variable-set']['variable']);
 });
   
 server.listen(port, function () {
