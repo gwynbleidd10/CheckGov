@@ -3,19 +3,6 @@
   "version": "1.0.0",
   "description": "https://github.com/yagop/node-telegram-bot-api",
   "main": "index.js",
-  "dependencies": {
-    "@network-utils/tcp-ping": "^1.1.0",
-    "express": "^4.17.1",
-    "express-xml-bodyparser": "^0.3.0",
-    "is-reachable": "^3.1.0",
-    "node-http-ping": "^0.3.1",
-    "node-telegram-bot-api": "^0.30.0",
-    "ping": "^0.2.2",
-    "ping-lite": "^2.0.2",
-    "tcp-ping": "^0.1.1",
-    "web-pingjs": "^1.0.1"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/gwynbleidd10/CheckGov/issues"
   },
-  "homepage": "https://github.com/gwynbleidd10/CheckGov#readme"
+  "homepage": "https://github.com/gwynbleidd10/CheckGov#readme",
+  "dependencies": {
+    "busboy": "^0.3.1",
+    "express": "^4.17.1",
+    "fast-xml-parser": "^3.12.19",
+    "node-http-ping": "^0.3.1",
+    "node-telegram-bot-api": "^0.30.0"
+  }
 }

@@ -1,47 +1,90 @@
-const ping = require('node-http-ping')
+/*
+*   Зависимости
+*/
+
 const TelegramBot = require('node-telegram-bot-api');
-const xmlparser = require('express-xml-bodyparser');
 const express = require('express');
+const ping = require('node-http-ping')
+const Busboy = require('busboy');
+const parser = require('fast-xml-parser');
 
-process.env.NTBA_FIX_319 = 1;
-const token = process.env.BOT_TOKEN;
-const bot = new TelegramBot(token, {polling: true});
-const server = express();
+/*
+*   Константы
+*/
 
-const port = process.env.PORT || 8080; 
 const codChat = '-1001487748065';
 const url = ['https://sakha.gov.ru', 'http://e-yakutia.ru', 'https://dom.e-yakutia.ru'];
 const admins = ['337277275'];
+
+/*
+*   Переменные
+*/
 
 var ms = [0, 0, 0], count = [0, 0, 0], err = [false, false, false];
 var str = '';
 var service = false;    //БАЗА
 
-console.log("Бот запущен!");
+/*
+*   Запуск
+*/
 
-server.use(xmlparser());
+console.log("Бот запущен!");
+pingCheck("timer");
+
+//  Таймеры
+setInterval(pingCheck, 30000, "timer");
+
+/*
+*   Сервер
+*/
+
+const server = express();
+const port = process.env.PORT || 8080;
+
 server.use(express.json());
-server.use(express.urlencoded({
-    extended: true
-}));
+server.use(express.urlencoded({extended: true}));
 
 server.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
 server.post('/', function (req, res) {
-    var data = req.body;
-    //res.send(data);
-    res.send('Successfully Posted');
-    console.log(data + "\n--------------------------------------------------------");
-    console.log(data['variable-set']['variable']);
+    var busboy = new Busboy({ headers: req.headers });
+    var body, jsonObj;
+    busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+      console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
+      file.on('data', function(data) {
+        console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
+        body += data;
+      });
+      file.on('end', function() {
+        console.log('File [' + fieldname + '] Finished');
+        console.log(body.toString());
+        jsonObj = parser.parse(body.toString());
+        console.log(jsonObj);
+      });
+    });
+    busboy.on('finish', function() {
+      console.log('Done parsing form!');
+      //console.log(jsonObj);
+      res.send(jsonObj);
+    });
+    req.pipe(busboy);
+    console.log(`\n${req.headers['content-type']}\n`);
+    //console.log(data['variable-set']['variable'][1]['metadata']);
 });
   
 server.listen(port, function () {
     console.log(`Сервер запущен на ${port} порту`);
 });
 
-pingCheck("timer");
+/*
+*   Telegram
+*/
+
+process.env.NTBA_FIX_319 = 1;
+const token = process.env.BOT_TOKEN;
+const bot = new TelegramBot(token, {polling: true});
 
 bot.onText(/\/status/, function (msg) {           
     pingCheck("status", msg.chat.id);  
@@ -60,7 +103,7 @@ bot.onText(/\/service/, function (msg) {
 });
 
 /*
-*   Формирование и отправка сообщения
+*   Функции
 */
 
 function sendMessage(){    
@@ -111,10 +154,6 @@ function sendMessage(){
     console.log("Сообщение отправлено:\n" + str);
 }
 
-/*
-*   Проверки
-*/
-
 function func(){
     switch(arguments[0]) {
         case 'status':
@@ -149,10 +188,6 @@ function func(){
     }    
 }
 
-/*
-*   Проверка доступности сайтов
-*/
-
 async function pingCheck(){
     console.log('timer');
     if (!service || arguments[0] == 'status'){
@@ -178,5 +213,3 @@ async function pingCheck(){
 function getTime() {
     return new Date().toLocaleDateString('ru', {timeZone: 'Asia/Yakutsk', hour: 'numeric', minute: 'numeric'});
 }
-
-setInterval(pingCheck, 30000, "timer");
