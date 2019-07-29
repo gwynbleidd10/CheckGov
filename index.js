@@ -83,15 +83,16 @@ server.post('/', function (req, res) {
       file.on('end', function() {
         console.log('File [' + fieldname + '] got ' + body.length + ' bytes');
         jsonObj = parser.parse(body, options);
+        var query = "INSERT INTO errors(error) VALUES('" + body + "')";
+        database(query);   
+        
         //  Debug
         console.log(body);    
         //console.log(jsonObj);
       });
     });
-    busboy.on('finish', function() {
-      var query = "INSERT INTO errors(error) VALUES('" + body + "')";
-      database(query);       
-      console.log('Done parsing form!');
+    busboy.on('finish', function() {    
+      console.log('Done parsing!');
       //Название устройства
       console.log(jsonObj["variable-set"]["variable"][7]['metadata'][0]["nls-string-val"]);
       //Расположение
@@ -110,10 +111,10 @@ function database(query){
     bd.connect();
     bd.query(query, (err, res) => {
         if (err) throw err;
-        for (let row of res.rows) {
-        console.log(JSON.stringify(row));
-    }
-    bd.end();
+        /*for (let row of res.rows) {
+          console.log(JSON.stringify(row));
+        }*/
+        bd.end();
     });
 }
 
