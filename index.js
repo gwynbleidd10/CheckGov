@@ -77,21 +77,29 @@ server.get('/db', async (req, res) => {
       const results = { 'results': (result) ? result.rows : null};
       res.json(results);
       client.release();
-    } catch (err) {
-      console.error(err);
-      res.send("Error " + err);
-    }
+      } catch (err) {
+        console.error(err);
+        res.send("Error " + err);
+      }
   })
 
 function database(query){
-    db.connect();
+   try {
+      const client = await pool.connect()
+      const result = await client.query(query);
+      client.release();
+      } catch (err) {
+        console.error(err);
+        res.send("Error " + err);
+      }
+    /*db.connect();
     db.query(query, (err, res) => {
         if (err) throw err;
         /*for (let row of res.rows) {
           console.log(JSON.stringify(row));
-        }*/
+        }*
         db.end();
-    });
+    });*/
 }
 
 server.post('/', function (req, res) {
