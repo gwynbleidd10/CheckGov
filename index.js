@@ -72,11 +72,11 @@ server.get('/', function (req, res) {
 
 server.get('/db', async (req, res) => {
     try {
-      const client = await db.connect();
-      const result = await client.query('SELECT * FROM errors');
+      await db.connect();
+      wait db.query('SELECT * FROM errors');
       const results = { 'results': (result) ? result.rows : null};
       res.render('pages/db', results );
-      client.release();
+      db.end();
     } catch (err) {
       console.error(err);
       res.send("Error " + err);
