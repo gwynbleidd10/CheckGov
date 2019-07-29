@@ -63,7 +63,7 @@ setInterval(pingCheck, 30000, "timer");
 const server = express();
 const port = process.env.PORT || 8080;
 
-server.set('view engine', 'html');
+//server.set('view engine', 'html');
 server.use(express.json());
 server.use(express.urlencoded({extended: true}));
 
@@ -76,7 +76,7 @@ server.get('/db', async (req, res) => {
       const client = await pool.connect()
       const result = await client.query('SELECT * FROM errors');
       const results = { 'results': (result) ? result.rows : null};
-      res.render('pages/db', results );
+      res.send(results);
       client.release();
     } catch (err) {
       console.error(err);
