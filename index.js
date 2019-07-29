@@ -63,6 +63,7 @@ setInterval(pingCheck, 30000, "timer");
 const server = express();
 const port = process.env.PORT || 8080;
 
+server.set('view engine', 'html');
 server.use(express.json());
 server.use(express.urlencoded({extended: true}));
 
