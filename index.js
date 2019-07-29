@@ -7,7 +7,7 @@ const express = require('express');
 const ping = require('node-http-ping')
 const Busboy = require('busboy');
 const parser = require('fast-xml-parser');
-const { Client } = require('pg');
+const { Pool } = require('pg');
 
 /*
 *   Константы
@@ -17,9 +17,9 @@ const codChat = '-1001487748065';
 const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru'];
 const ip = ['91.201.237.5', '91.201.237.26', '91.201.237.17']
 const admins = ['337277275'];
-const db = new Client({
+const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: true,
+  ssl: true
 });
 
 /*
@@ -72,11 +72,11 @@ server.get('/', function (req, res) {
 
 server.get('/db', async (req, res) => {
     try {
-      await db.connect();
-      const result = await db.query('SELECT * FROM errors');
+      const client = await pool.connect()
+      const result = await client.query('SELECT * FROM errors');
       const results = { 'results': (result) ? result.rows : null};
       res.render('pages/db', results );
-      db.end();
+      client.release();
     } catch (err) {
       console.error(err);
       res.send("Error " + err);
@@ -108,7 +108,7 @@ server.post('/', function (req, res) {
         console.log('File [' + fieldname + '] got ' + body.length + ' bytes');
         jsonObj = parser.parse(body, options);
         var query = "INSERT INTO errors(error) VALUES('" + body + "')";
-        database(query);   
+        //database(query);   
         
         //  Debug
         console.log(body);    
