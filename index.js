@@ -76,8 +76,9 @@ server.post('/', function (req, res) {
       file.on('end', function() {
         console.log('File [' + fieldname + '] got ' + body.length + ' bytes');
         jsonObj = parser.parse(body, options);
-        //console.log(body);    Debug        
-        console.log(jsonObj); Debug
+        //  Debug
+        console.log(body);    
+        //console.log(jsonObj);
       });
     });
     busboy.on('finish', function() {
