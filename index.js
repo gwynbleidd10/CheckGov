@@ -39,6 +39,7 @@ var options = {
     localeRange: "", //To support non english character in tag/attribute values.
     parseTrueNumberOnly: false
 };
+var body = "";
 
 /*
 *   Запуск
@@ -66,7 +67,8 @@ server.get('/', function (req, res) {
 
 server.post('/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
-    var body = '', jsonObj;
+    body = '';
+    var jsonObj;
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
       console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
       file.on('data', function(data) {
@@ -82,7 +84,6 @@ server.post('/', function (req, res) {
       });
     });
     busboy.on('finish', function() {
-      
       test();
        
       console.log('Done parsing form!');
