@@ -13,7 +13,8 @@ const parser = require('fast-xml-parser');
 */
 
 const codChat = '-1001487748065';
-const url = ['https://sakha.gov.ru', 'http://e-yakutia.ru', 'https://dom.e-yakutia.ru'];
+//const url = ['https://sakha.gov.ru', 'http://e-yakutia.ru', 'https://dom.e-yakutia.ru'];
+const url = ['91.201.237.5', '91.201.237.26', '91.201.237.17']
 const admins = ['337277275'];
 
 /*
