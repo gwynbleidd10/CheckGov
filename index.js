@@ -82,12 +82,8 @@ server.post('/', function (req, res) {
       });
     });
     busboy.on('finish', function() {
-      reg = /(\w|\W){4096}/g;
-      var arr = body.match(reg);
-        arr.forEach(function(item, i){
-            bot.sendMessage(codChat, item);
-        });
-        console.log(arr);
+      
+      test();
        
       console.log('Done parsing form!');
       //Название устройства
@@ -104,6 +100,14 @@ server.post('/', function (req, res) {
     //console.log(data['variable-set']['variable'][1]['metadata']);
 });
   
+function test(){
+    reg = /(\w|\W){4096}/g;
+    var arr = body.match(reg);
+    for (var i = 0; i < arr.length; i++){   
+        bot.sendMessage(codChat, arr[i]);
+    }           
+}
+
 server.listen(port, function () {
     console.log(`Сервер запущен на ${port} порту`);
 });
