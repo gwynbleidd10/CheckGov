@@ -84,9 +84,11 @@ server.post('/', function (req, res) {
     busboy.on('finish', function() {
       reg = /(\w|\W){4096}/g;
       var arr = body.match(reg);
+        arr.forEach(function(item, i){
+            bot.sendMessage(codChat, item);
+        });
         console.log(arr);
        
-      bot.sendMessage(codChat, arr);
       console.log('Done parsing form!');
       //Название устройства
       console.log(jsonObj["variable-set"]["variable"][7]['metadata'][0]["nls-string-val"]);
