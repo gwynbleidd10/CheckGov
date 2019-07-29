@@ -116,7 +116,7 @@ server.post('/', function (req, res) {
         console.log('File [' + fieldname + '] got ' + body.length + ' bytes');
         jsonObj = parser.parse(body, options);
         var query = "INSERT INTO errors(error) VALUES('" + body + "')";
-        //database(query);   
+        database(query);   
         
         //  Debug
         console.log(body);    
