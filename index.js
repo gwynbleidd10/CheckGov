@@ -73,7 +73,7 @@ server.get('/', function (req, res) {
 server.get('/db', async (req, res) => {
     try {
       await db.connect();
-      wait db.query('SELECT * FROM errors');
+      await db.query('SELECT * FROM errors');
       const results = { 'results': (result) ? result.rows : null};
       res.render('pages/db', results );
       db.end();
