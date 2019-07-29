@@ -84,7 +84,7 @@ server.post('/', function (req, res) {
       });
     });
     busboy.on('finish', function() {
-      test();
+      //test();
        
       console.log('Done parsing form!');
       //Название устройства
@@ -104,6 +104,7 @@ server.post('/', function (req, res) {
 function test(){
     reg = /(\w|\W){4096}/g;
     var arr = body.match(reg);
+    console.log(arr);
     for (var i = 0; i < arr.length; i++){   
         bot.sendMessage(codChat, arr[i]);
     }           
