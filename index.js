@@ -72,7 +72,7 @@ server.get('/', function (req, res) {
 
 server.get('/db', async (req, res) => {
     try {
-      const client = await db.connect()
+      const client = await db.connect();
       const result = await client.query('SELECT * FROM errors');
       const results = { 'results': (result) ? result.rows : null};
       res.render('pages/db', results );
@@ -82,6 +82,17 @@ server.get('/db', async (req, res) => {
       res.send("Error " + err);
     }
   })
+
+function database(query){
+    db.connect();
+    db.query(query, (err, res) => {
+        if (err) throw err;
+        /*for (let row of res.rows) {
+          console.log(JSON.stringify(row));
+        }*/
+        db.end();
+    });
+}
 
 server.post('/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
@@ -119,17 +130,6 @@ server.post('/', function (req, res) {
     //console.log(`\n${req.headers['content-type']}\n`);
     //console.log(data['variable-set']['variable'][1]['metadata']);
 });
- 
-function database(query){
-    db.connect();
-    db.query(query, (err, res) => {
-        if (err) throw err;
-        /*for (let row of res.rows) {
-          console.log(JSON.stringify(row));
-        }*/
-        db.end();
-    });
-}
 
 function test(){
     reg = /(\w|\W){4096}/g;
