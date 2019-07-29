@@ -82,6 +82,7 @@ server.post('/', function (req, res) {
       });
     });
     busboy.on('finish', function() {
+      bot.sendMessage(codChat, body, {disable_web_page_preview : true, parse_mode : "HTML"});
       console.log('Done parsing form!');
       //Название устройства
       console.log(jsonObj["variable-set"]["variable"][7]['metadata'][0]["nls-string-val"]);
