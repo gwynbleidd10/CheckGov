@@ -17,7 +17,7 @@ const codChat = '-1001487748065';
 const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru'];
 const ip = ['91.201.237.5', '91.201.237.26', '91.201.237.17']
 const admins = ['337277275'];
-const bd = new Client({
+const db = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
@@ -70,6 +70,19 @@ server.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
+server.get('/db', function (req, res) {
+    db.connect();
+    db.query('SELECT * FROM errors', (err, result) => {
+        if (err) throw err;
+        else
+        res.render('pages/db', {result: result.rows});
+        /*for (let row of res.rows) {
+          console.log(JSON.stringify(row));
+        }*/
+        db.end();
+    });
+});
+
 server.post('/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
     body = '';
@@ -108,13 +121,13 @@ server.post('/', function (req, res) {
 });
  
 function database(query){
-    bd.connect();
-    bd.query(query, (err, res) => {
+    db.connect();
+    db.query(query, (err, res) => {
         if (err) throw err;
         /*for (let row of res.rows) {
           console.log(JSON.stringify(row));
         }*/
-        bd.end();
+        db.end();
     });
 }
 
