@@ -84,6 +84,7 @@ server.post('/', function (req, res) {
     busboy.on('finish', function() {
       reg = /(\w|\W){4096}/g;
       var arr = body.match(reg);
+        console.log(arr);
        
       bot.sendMessage(codChat, arr);
       console.log('Done parsing form!');
