@@ -83,7 +83,7 @@ server.get('/db', async (req, res) => {
       }
   })
 
-function database(query){
+async function database(query){
    try {
       const client = await pool.connect()
       const result = await client.query(query);
