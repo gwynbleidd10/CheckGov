@@ -7,6 +7,7 @@ const express = require('express');
 const ping = require('node-http-ping')
 const Busboy = require('busboy');
 const parser = require('fast-xml-parser');
+const postgres = require('pg');
 
 /*
 *   Константы
@@ -16,6 +17,10 @@ const codChat = '-1001487748065';
 const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru'];
 const ip = ['91.201.237.5', '91.201.237.26', '91.201.237.17']
 const admins = ['337277275'];
+const bd = new postgres({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
 
 /*
 *   Переменные
@@ -84,8 +89,7 @@ server.post('/', function (req, res) {
       });
     });
     busboy.on('finish', function() {
-      //test();
-       
+      database('INSERT INTO errors(error) VALUES(' + body + ');');       
       console.log('Done parsing form!');
       //Название устройства
       console.log(jsonObj["variable-set"]["variable"][7]['metadata'][0]["nls-string-val"]);
@@ -100,7 +104,18 @@ server.post('/', function (req, res) {
     //console.log(`\n${req.headers['content-type']}\n`);
     //console.log(data['variable-set']['variable'][1]['metadata']);
 });
-  
+ 
+function database(query){
+    bd.connect();
+    bd.query(query, (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+    }
+    bd.end();
+    });
+}
+
 function test(){
     reg = /(\w|\W){4096}/g;
     var arr = body.match(reg);
