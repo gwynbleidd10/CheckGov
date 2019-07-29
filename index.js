@@ -7,7 +7,7 @@ const express = require('express');
 const ping = require('node-http-ping')
 const Busboy = require('busboy');
 const parser = require('fast-xml-parser');
-const postgres = require('pg');
+const { Client } = require('pg');
 
 /*
 *   Константы
@@ -17,7 +17,7 @@ const codChat = '-1001487748065';
 const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru'];
 const ip = ['91.201.237.5', '91.201.237.26', '91.201.237.17']
 const admins = ['337277275'];
-const bd = new postgres({
+const bd = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
