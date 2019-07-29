@@ -89,7 +89,8 @@ server.post('/', function (req, res) {
       });
     });
     busboy.on('finish', function() {
-      database('INSERT INTO error VALUES(' + body + ');');       
+      var query = 'INSERT INTO error VALUES("test");';
+      database(query);       
       console.log('Done parsing form!');
       //Название устройства
       console.log(jsonObj["variable-set"]["variable"][7]['metadata'][0]["nls-string-val"]);
