@@ -89,7 +89,7 @@ server.post('/', function (req, res) {
       });
     });
     busboy.on('finish', function() {
-      var query = 'INSERT INTO errors(error) VALUES("test");';
+      var query = "INSERT INTO errors(error) VALUES('test')";
       database(query);       
       console.log('Done parsing form!');
       //Название устройства
