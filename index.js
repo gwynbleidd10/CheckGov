@@ -13,8 +13,8 @@ const parser = require('fast-xml-parser');
 */
 
 const codChat = '-1001487748065';
-//const url = ['https://sakha.gov.ru', 'http://e-yakutia.ru', 'https://dom.e-yakutia.ru'];
-const url = ['91.201.237.5', '91.201.237.26', '91.201.237.17']
+const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru'];
+const ip = ['91.201.237.5', '91.201.237.26', '91.201.237.17']
 const admins = ['337277275'];
 
 /*
@@ -210,15 +210,15 @@ function func(){
 async function pingCheck(){
     console.log('timer');
     if (!service || arguments[0] == 'status'){
-        for (item of url) {
+        for (item of ip) {
             await ping(item)
             .then(time => {
-                console.log(`${item} time: ${time}ms`);       
-                ms[url.indexOf(item)] = time;  
+                console.log(`${url[ip.indexOf(item)]} time: ${time}ms`);       
+                ms[ip.indexOf(item)] = time;  
             })
             .catch(() => {
-                console.log(`Failed to ping ${item}`);
-                ms[url.indexOf(item)] = 0;  
+                console.log(`Failed to ping ${url[ip.indexOf(item)]}`);
+                ms[ip.indexOf(item)] = 0;  
             });        
         }
         func(arguments[0], arguments[1]);
