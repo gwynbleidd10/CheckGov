@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gwynbleidd10/CheckGov#readme",
   "dependencies": {
+    "pg": "^7.12.0",
     "busboy": "^0.3.1",
     "express": "^4.17.1",
     "fast-xml-parser": "^3.12.19",
