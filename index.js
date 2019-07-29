@@ -70,18 +70,18 @@ server.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
-server.get('/db', function (req, res) {
-    db.connect();
-    db.query('SELECT * FROM errors', (err, result) => {
-        if (err) throw err;
-        else
-        res.render('pages/db', {result: result.rows});
-        /*for (let row of res.rows) {
-          console.log(JSON.stringify(row));
-        }*/
-        db.end();
-    });
-});
+server.get('/db', async (req, res) => {
+    try {
+      const client = await db.connect()
+      const result = await client.query('SELECT * FROM errors');
+      const results = { 'results': (result) ? result.rows : null};
+      res.render('pages/db', results );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
 
 server.post('/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
