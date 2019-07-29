@@ -64,7 +64,7 @@ const server = express();
 const port = process.env.PORT || 8080;
 
 //server.set('view engine', 'jade');
-app.use(express.static(__dirname + '/public'));
+server.use(express.static(__dirname + '/public'));
 server.use(express.json());
 server.use(express.urlencoded({extended: true}));
 
