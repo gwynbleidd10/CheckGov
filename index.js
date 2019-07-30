@@ -13,7 +13,7 @@ const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru'];
 const ip = ['91.201.237.5', '91.201.237.26', '91.201.237.17']
 const admins = ['337277275'];
 const pool = new Pool({
-    connectionString: "postgres://xyqpegqsrbzjso:3cd4ae6126ae5c534fece6a6724daeb7d8cf52c51125b1bfde669eeff133ea17@ec2-54-228-246-214.eu-west-1.compute.amazonaws.com:5432/d4rj3tlq6m65jg",//process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
     ssl: true
 });
 
