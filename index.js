@@ -195,20 +195,18 @@ function func(){
 
 async function pingCheck(){
     console.log('timer');
-    if (arguments[0] == 'status'){
-        for (item of ip) {
-            await ping(item)
-            .then(time => {
-                console.log(`${url[ip.indexOf(item)]} time: ${time}ms`);       
-                ms[ip.indexOf(item)] = time;  
-            })
-            .catch(() => {
-                console.log(`Failed to ping ${url[ip.indexOf(item)]}`);
-                ms[ip.indexOf(item)] = 0;  
-            });        
-        }
-        func(arguments[0], arguments[1]);
-    }    
+    for (item of ip) {
+        await ping(item)
+        .then(time => {
+            console.log(`${url[ip.indexOf(item)]} time: ${time}ms`);       
+            ms[ip.indexOf(item)] = time;  
+        })
+        .catch(() => {
+            console.log(`Failed to ping ${url[ip.indexOf(item)]}`);
+            ms[ip.indexOf(item)] = 0;  
+        });        
+    }
+    func(arguments[0], arguments[1]);  
 }
 
 async function database(type, query){
