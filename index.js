@@ -88,18 +88,11 @@ async function database(query){
       const client = await pool.connect()
       const result = await client.query(query);
       client.release();
+      bot.sendMessage(codChat, `Было зафиксировано новое сообщение об ошибке. Все сообщения об ошибках находятся <a href="https://checkgov.herokuapp.com/db">здесь!</a>`, {parse_mode : "HTML"});
       } catch (err) {
         console.error(err);
         res.send("Error " + err);
       }
-    /*db.connect();
-    db.query(query, (err, res) => {
-        if (err) throw err;
-        /*for (let row of res.rows) {
-          console.log(JSON.stringify(row));
-        }*
-        db.end();
-    });*/
 }
 
 server.post('/', function (req, res) {
@@ -172,7 +165,7 @@ bot.onText(/\/service/, function (msg) {
     }
     else
     {
-        bot.sendMessage(msg.chat.id, "Вы не имеете необходимого уровня доступа для использования данной команды! Если это ошибка, обратитесь к администратору для добавления вашего id: <code>" + msg.from.id + "</code>", {parse_mode : "HTML"});
+        bot.sendMessage(msg.chat.id, "Вы не имеете необходимого уровня доступа для использования данной команды! Если это ошибка, обратитесь к администратору для добавления вашего id: <i>" + msg.from.id + "</i>", {disable_web_page_preview : true, parse_mode : "HTML"});
     } 
 });
 
