@@ -122,17 +122,6 @@ bot.onText(/\/status/, function (msg) {
     pingCheck("status", msg.chat.id);  
 });
 
-bot.onText(/\/service/, function (msg) {
-    if (admins.includes(msg.from.id.toString())){
-        service = !service;
-        sendMessage("service",  msg.from.id, msg.from.first_name, msg.from.last_name);  
-    }
-    else
-    {
-        bot.sendMessage(msg.chat.id, "Вы не имеете необходимого уровня доступа для использования данной команды! Если это ошибка, обратитесь к администратору для добавления вашего id: <i>" + msg.from.id + "</i>", {disable_web_page_preview : true, parse_mode : "HTML"});
-    } 
-});
-
 bot.onText(/\/list/, function (msg) {           
     bot.sendMessage(msg.from.id, "Данная функция в разработке", {disable_web_page_preview : true, parse_mode : "HTML"}); 
 });
@@ -146,12 +135,7 @@ function sendMessage(){
     var str = '';
     switch(arguments[0]) {
         case 'status':
-            str = '<b>Техобслуживание: </b>';
-            if (service)
-                str += '<i>Включено</i>';
-            else
-                str += '<i>Выключено</i>';
-            str += '\n\n<b>Статус сайтов: </b>\n';
+            str = '<b>Статус сайтов: </b>\n';
             ms.forEach(function(item, i){
                 if (item != '0'){
                     str += `\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <i>${item}ms</i>`;
@@ -162,16 +146,6 @@ function sendMessage(){
                 }
             });
             bot.sendMessage(arguments[1], str, {disable_web_page_preview : true, parse_mode : "HTML"});
-            break;
-        case 'service':
-            str = '<b>Техобслуживание</b>: ';
-            if (service)
-                str += '<i>Включено</i>';
-            else
-                str += '<i>Выключено</i>';
-            str += ` пользователем <a href="tg://user?id=${arguments[1]}">${arguments[2]} ${arguments[3]}</a>`;
-            bot.sendMessage(process.env.CHAT, str, {parse_mode : "HTML"});
-            console.log("service"); 
             break;
         case 'on':
             str = `Восстановлено соединение с:\n\n<a href=\"https://${url[arguments[2]]}/\">${url[arguments[2]]}</a>`;
@@ -193,7 +167,6 @@ function func(){
             sendMessage('status', arguments[1])
             break;
         case 'timer':
-            if (!service){
                 ms.forEach(function(item, i){
                    if (ms[i] == 0){
                        if (!err[i]){
@@ -215,8 +188,7 @@ function func(){
                             sendMessage("on", arguments[1], i);
                         }
                    }
-                });
-            }           
+                });         
             break;        
     }    
 }
