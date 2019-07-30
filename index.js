@@ -195,7 +195,7 @@ function func(){
 
 async function pingCheck(){
     console.log('timer');
-    if (!service || arguments[0] == 'status'){
+    if (arguments[0] == 'status'){
         for (item of ip) {
             await ping(item)
             .then(time => {
