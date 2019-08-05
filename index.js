@@ -149,12 +149,12 @@ function sendMessage(){
             break;
         case 'on':
             str = `Восстановлено соединение с:\n\n<a href=\"https://${url[arguments[2]]}/\">${url[arguments[2]]}</a>`;
-            bot.sendMessage(process.env.CHAT, str, {parse_mode : "HTML"}); 
+            bot.sendMessage(process.env.CHAT, str, {disable_web_page_preview : true, parse_mode : "HTML"}); 
             console.log("on");           
             break;
         case 'off':
             str = `Потеряно соединение с:\n\n<a href=\"https://${url[arguments[2]]}/\">${url[arguments[2]]}</a>`;
-            bot.sendMessage(process.env.CHAT, str, {parse_mode : "HTML"});
+            bot.sendMessage(process.env.CHAT, str, {disable_web_page_preview : true, parse_mode : "HTML"});
             console.log("off");
             break;
     }
