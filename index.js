@@ -194,11 +194,11 @@ function func(){
 }
 
 async function pingCheck(){
-    console.log('timer');
+    //console.log('timer');
     for (item of ip) {
         await ping(item)
         .then(time => {
-            console.log(`${url[ip.indexOf(item)]} time: ${time}ms`);       
+            //console.log(`${url[ip.indexOf(item)]} time: ${time}ms`);       
             ms[ip.indexOf(item)] = time;  
         })
         .catch(() => {
