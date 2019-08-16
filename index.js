@@ -86,8 +86,8 @@ server.post('/', function (req, res) {
         bot.sendMessage(process.env.CHAT, `Было зафиксировано новое сообщение об ошибке. Все сообщения об ошибках расположены по адресу <a href="https://checkgov.herokuapp.com/db">checkgov.herokuapp.com/db</a>`, {parse_mode : "HTML"});
         
         //  Debug
-        //console.log(body);    
-        console.log(jsonObj);
+        console.log(body);    
+        //console.log(jsonObj);
         });
     });
     busboy.on('finish', function() {    
