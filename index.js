@@ -85,8 +85,8 @@ server.post('/', function (req, res) {
         database("insert", "INSERT INTO errors(error) VALUES('" + body + "')");        
         //bot.sendMessage(process.env.CHAT, `Было зафиксировано новое сообщение об ошибке. Все сообщения об ошибках расположены по адресу <a href="https://checkgov.herokuapp.com/db">checkgov.herokuapp.com/db</a>`, {parse_mode : "HTML"});
         
-        console.log(`Ошибка \n${jsonObj["variable-set"]["variable"][6]['metadata'][1]["nls-string-val"]}\nТип\n${fieldname}\nfilename:\n${filename}\nencoding:\n${encoding}\nmimetype: ${mimetype}`);
-        //bot.sendMessage(process.env.CHAT, `Ошибка \n${jsonObj["variable-set"]["variable"][6]['metadata'][1]["nls-string-val"]}\nТип\n${fieldname}\nfilename:\n${filename}\nencoding:\n${encoding}\nmimetype: ${mimetype}`, {parse_mode : "HTML"}); 
+        console.log(`Ошибка \n${jsonObj["variable-set"]["variable"][6]['metadata'][1]["nls-string-val"]}\nТип\n${fieldname}\nfilename:\n${filename}\nmimetype: ${mimetype}`);
+        bot.sendMessage(process.env.CHAT, `<b>Ошибка</b>\n${jsonObj["variable-set"]["variable"][6]['metadata'][1]["nls-string-val"]}\n<b>Тип</b>\n${fieldname}\n<b>filename</b>\n${filename}\n<b>mimetype</b>\n${mimetype}`, {parse_mode : "HTML"}); 
             
         //  Debug
         //console.log(body);    
