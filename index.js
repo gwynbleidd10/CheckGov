@@ -83,7 +83,7 @@ server.post('/', function (req, res) {
         jsonObj = parser.parse(body, options);
 
         database("insert", "INSERT INTO errors(error) VALUES('" + body + "')");
-        console.log(jsonObj["variable-set"]["variable"][7]['metadata'][1]["nls-string-val"]
+        console.log(jsonObj["variable-set"]["variable"][7]['metadata'][1]["nls-string-val"];
         //bot.sendMessage(process.env.CHAT, `Было зафиксировано новое сообщение об ошибке. Все сообщения об ошибках расположены по адресу <a href="https://checkgov.herokuapp.com/db">checkgov.herokuapp.com/db</a>`, {parse_mode : "HTML"});
         
         //  Debug
