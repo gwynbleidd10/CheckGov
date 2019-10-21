@@ -26,7 +26,7 @@ var options = {
     attributeNamePrefix : "@_",
     attrNodeName: "attr", //default is 'false'
     textNodeName : "text",
-    ignoreAttributes : true,
+    ignoreAttributes : false,
     ignoreNameSpace : false,
     allowBooleanAttributes : false,
     parseNodeValue : true,
