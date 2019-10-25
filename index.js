@@ -11,7 +11,6 @@ const { Pool } = require('pg');
 
 const url = ['sakha.gov.ru', 'e-yakutia.ru', 'dom.e-yakutia.ru'];
 const ip = ['91.201.237.5', '91.201.237.26', '91.201.237.17']
-const admins = ['337277275'];
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: true
@@ -123,10 +122,6 @@ const bot = new TelegramBot(token, {polling: true});
 
 bot.onText(/\/status/, function (msg) {           
     pingCheck("status", msg.chat.id);  
-});
-
-bot.onText(/\/list/, function (msg) {           
-    bot.sendMessage(msg.from.id, "Данная функция в разработке", {disable_web_page_preview : true, parse_mode : "HTML"}); 
 });
 
 /*
