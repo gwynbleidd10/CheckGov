@@ -4,7 +4,9 @@ const express = require('express');
 const parser = require('fast-xml-parser');
 const Busboy = require('busboy');
 const { Pool } = require('pg');
-const http = require('http')
+
+var http = require("http");
+const Curl = require('curl-request');
 
 /*
 *   Константы
@@ -63,6 +65,11 @@ server.get('/', function (req, res) {
 });
 
 function api(chat, text){
+    
+    
+    
+    
+    
     var options = {
     port: 80,
     hostname: 'https://api.telegram.org',
@@ -72,9 +79,20 @@ function api(chat, text){
 
   var req = http.request(options, (res) => {
   console.log(`STATUS: ${res.statusCode}`);
+  console.log('HEADERS: ' + JSON.stringify(res.headers));
+  res.setEncoding('utf8');
+  res.on('data', function (chunk) {
+    console.log('BODY: ' + chunk);
   });
-                         
-  req.end();
+});
+
+req.on('error', function(e) {
+  console.log('problem with request: ' + e.message);
+});
+
+req.on('error', function(e) {
+  console.log('problem with request: ' + e.message);
+});
   console.log(chat + ' ' + text);
  
 }
