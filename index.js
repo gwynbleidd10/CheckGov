@@ -66,7 +66,7 @@ function api(chat, text){
     const options = {
         hostname: 'api.telegram.org',
         port: 80,
-        path: '/bot961112179:AAHjVaEbvUP7RHi_Pw4hIPtICfbaTzycT7c/sendMessage?chat_id=' + chat + '&text=' + text ',
+        path: '/bot961112179:AAHjVaEbvUP7RHi_Pw4hIPtICfbaTzycT7c/sendMessage?chat_id=' + chat + '&text=' + text,
         method: 'GET'
     }
     
