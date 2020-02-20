@@ -72,10 +72,11 @@ function api(chat, text){
 
   var req = http.request(options, (res) => {
   console.log(`STATUS: ${res.statusCode}`);
-  }
+  });
                          
   req.end();
-    console.log(chat + ' ' + text);
+  console.log(chat + ' ' + text);
+ 
 }
 
 server.get('/db', async (req, res) => {
