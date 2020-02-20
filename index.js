@@ -63,7 +63,7 @@ server.get('/', function (req, res) {
 });
 
 function api(chat, text){
-    /*const options = {
+    const options = {
         hostname: 'api.telegram.org',
         port: 80,
         path: '/bot961112179:AAHjVaEbvUP7RHi_Pw4hIPtICfbaTzycT7c/sendMessage?chat_id=' + chat + '&text=' + text ',
@@ -78,8 +78,7 @@ function api(chat, text){
         console.error(error)
     })
 
-    req.end()*/
-    console.log('test');
+    req.end()
 }
 
 server.get('/db', async (req, res) => {
