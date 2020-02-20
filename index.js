@@ -4,7 +4,7 @@ const express = require('express');
 const parser = require('fast-xml-parser');
 const Busboy = require('busboy');
 const { Pool } = require('pg');
-const https = require('https')
+const http = require('http')
 
 /*
 *   Константы
@@ -67,10 +67,10 @@ function api(chat, text){
         hostname: 'api.telegram.org',
         port: 80,
         path: '/bot961112179:AAHjVaEbvUP7RHi_Pw4hIPtICfbaTzycT7c/sendMessage?chat_id=' + chat + '&text=' + text,
-        method: 'GET'
+        agent: false
     }
     
-    const req = https.request(options, res => {
+    const req = http.get(options, res => {
         console.log(`statusCode: ${res.statusCode}`)
     })
 
