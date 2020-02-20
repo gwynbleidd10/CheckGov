@@ -63,23 +63,18 @@ server.get('/', function (req, res) {
 });
 
 function api(chat, text){
-    /*const options = {
-        hostname: 'api.telegram.org',
-        port: 80,
-        path: '/bot961112179:AAHjVaEbvUP7RHi_Pw4hIPtICfbaTzycT7c/sendMessage?chat_id=' + chat + '&text=' + text,
-        agent: false
-    }
-    
-    const req = http.get(options, res => {
-        console.log(`statusCode: ${res.statusCode}`)
-    })
+    var options = {
+    port: 80,
+    hostname: 'api.telegram.org',
+    method: 'GET',
+    path: '/bot961112179:AAHjVaEbvUP7RHi_Pw4hIPtICfbaTzycT7c/sendMessage?chat_id=' + chat + '&text=' + text
+  };
 
-    req.on('error', error => {
-        console.error(error)
-    })
-
-    req.end()
-    */
+  var req = http.request(options, (res) => {
+  console.log(`STATUS: ${res.statusCode}`);
+  }
+                         
+  req.end();
     console.log(chat + ' ' + text);
 }
 
