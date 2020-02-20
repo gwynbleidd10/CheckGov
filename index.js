@@ -65,7 +65,7 @@ server.get('/', function (req, res) {
 function api(chat, text){
     var options = {
     port: 80,
-    hostname: 'api.telegram.org',
+    hostname: 'https://api.telegram.org',
     method: 'GET',
     path: '/bot961112179:AAHjVaEbvUP7RHi_Pw4hIPtICfbaTzycT7c/sendMessage?chat_id=' + chat + '&text=' + text
   };
