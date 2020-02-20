@@ -4,6 +4,7 @@ const express = require('express');
 const parser = require('fast-xml-parser');
 const Busboy = require('busboy');
 const { Pool } = require('pg');
+const https = require('https')
 
 /*
 *   Константы
@@ -58,8 +59,27 @@ server.use(express.json());
 server.use(express.urlencoded({extended: true}));
 
 server.get('/', function (req, res) {
-    res.send('Hello World!');
+    api(req.query.chat, req.query.text)
 });
+
+function api(chat, text){
+    const options = {
+        hostname: 'api.telegram.org',
+        port: 80,
+        path: '/bot961112179:AAHjVaEbvUP7RHi_Pw4hIPtICfbaTzycT7c/sendMessage?chat_id=' + chat + '&text=' + text ',
+        method: 'GET'
+    }
+    
+    const req = https.request(options, res => {
+        console.log(`statusCode: ${res.statusCode}`)
+    })
+
+    req.on('error', error => {
+        console.error(error)
+    })
+
+    req.end()
+}
 
 server.get('/db', async (req, res) => {
     res.json(await database("query", "SELECT * FROM errors"));
