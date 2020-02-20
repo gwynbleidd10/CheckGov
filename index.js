@@ -5,9 +5,6 @@ const parser = require('fast-xml-parser');
 const Busboy = require('busboy');
 const { Pool } = require('pg');
 
-var http = require("http");
-const Curl = require('curl-request');
-
 /*
 *   Константы
 */
@@ -61,29 +58,7 @@ server.use(express.json());
 server.use(express.urlencoded({extended: true}));
 
 server.get('/', function (req, res) {
-    api(req.query.chat, req.query.text)
-});
-
-function api(chat, text){
     
-    
-    
-    
-    
-    var options = {
-    port: 80,
-    hostname: 'https://api.telegram.org',
-    method: 'GET',
-    path: '/bot961112179:AAHjVaEbvUP7RHi_Pw4hIPtICfbaTzycT7c/sendMessage?chat_id=' + chat + '&text=' + text
-  };
-
-  var req = http.request(options, (res) => {
-  console.log(`STATUS: ${res.statusCode}`);
-  console.log('HEADERS: ' + JSON.stringify(res.headers));
-  res.setEncoding('utf8');
-  res.on('data', function (chunk) {
-    console.log('BODY: ' + chunk);
-  });
 });
 
 req.on('error', function(e) {
