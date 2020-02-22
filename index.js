@@ -57,18 +57,6 @@ const port = process.env.PORT || 8080;
 server.use(express.json());
 server.use(express.urlencoded({extended: true}));
 
-server.get('/', function (req, res) {
-    
-});
-
-req.on('error', function(e) {
-  console.log('problem with request: ' + e.message);
-});
-
-req.on('error', function(e) {
-  console.log('problem with request: ' + e.message);
-});
-
 server.get('/db', async (req, res) => {
     res.json(await database("query", "SELECT * FROM errors"));
 })
