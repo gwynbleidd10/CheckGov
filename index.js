@@ -68,9 +68,6 @@ req.on('error', function(e) {
 req.on('error', function(e) {
   console.log('problem with request: ' + e.message);
 });
-  console.log(chat + ' ' + text);
- 
-}
 
 server.get('/db', async (req, res) => {
     res.json(await database("query", "SELECT * FROM errors"));
