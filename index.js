@@ -156,7 +156,7 @@ function sendMessage(){
             else
                 str += '<i>Выключено</i>';
             str += ` пользователем <a href="tg://user?id=${arguments[1]}">${arguments[2]} ${arguments[3]}</a>`;
-            bot.sendMessage(arguments[1], str, {parse_mode : "HTML"}); //process.env.CHAT
+            bot.sendMessage(process.env.CHAT, str, {parse_mode : "HTML"});
             console.log("service"); 
             break;
         case 'on':
