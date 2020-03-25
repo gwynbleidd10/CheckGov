@@ -20,6 +20,7 @@ const pool = new Pool({
 *   Переменные
 */
 
+var service = false;
 var ms = [0, 0, 0], count = [0, 0, 0], err = [false, false, false];
 var options = {
     attributeNamePrefix : "@_",
@@ -62,46 +63,48 @@ server.get('/db', async (req, res) => {
 })
 
 server.post('/', function (req, res) {
-    var busboy = new Busboy({ headers: req.headers });
-    var jsonObj;
+    if (!service){
+        var busboy = new Busboy({ headers: req.headers });
+        var jsonObj;
 
-    busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {     
-        var body = '';   
+        busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {     
+            var body = '';   
 
-        console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
-        file.on('data', function(data) {
-        //console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
-        body += data;
+            console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
+            file.on('data', function(data) {
+            //console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
+            body += data;
+            });
+            file.on('end', function() {
+            console.log('File [' + fieldname + '] got ' + body.length + ' bytes');
+            jsonObj = parser.parse(body, options);
+
+            database("insert", "INSERT INTO errors(error) VALUES('" + body + "')");        
+            //bot.sendMessage(process.env.CHAT, `Было зафиксировано новое сообщение об ошибке. Все сообщения об ошибках расположены по адресу <a href="https://checkgov.herokuapp.com/db">checkgov.herokuapp.com/db</a>`, {parse_mode : "HTML"});
+
+            console.log(`Ошибка \n${jsonObj["variable-set"]["variable"][6]['metadata'][1]["nls-string-val"]}\nТип\n${fieldname}\nfilename:\n${filename}\nmimetype: ${mimetype}`);
+            bot.sendMessage(process.env.CHAT, `<b>Ошибка</b>\n${jsonObj["variable-set"]["variable"][6]['metadata'][1]["nls-string-val"]}\n<b>Тип</b>\n${fieldname}\n<b>filename</b>\n${filename}\n<b>mimetype</b>\n${mimetype}`, {parse_mode : "HTML"}); 
+
+            //  Debug
+            //console.log(body);    
+            console.log(jsonObj);
+            });
         });
-        file.on('end', function() {
-        console.log('File [' + fieldname + '] got ' + body.length + ' bytes');
-        jsonObj = parser.parse(body, options);
-
-        database("insert", "INSERT INTO errors(error) VALUES('" + body + "')");        
-        //bot.sendMessage(process.env.CHAT, `Было зафиксировано новое сообщение об ошибке. Все сообщения об ошибках расположены по адресу <a href="https://checkgov.herokuapp.com/db">checkgov.herokuapp.com/db</a>`, {parse_mode : "HTML"});
-        
-        console.log(`Ошибка \n${jsonObj["variable-set"]["variable"][6]['metadata'][1]["nls-string-val"]}\nТип\n${fieldname}\nfilename:\n${filename}\nmimetype: ${mimetype}`);
-        bot.sendMessage(process.env.CHAT, `<b>Ошибка</b>\n${jsonObj["variable-set"]["variable"][6]['metadata'][1]["nls-string-val"]}\n<b>Тип</b>\n${fieldname}\n<b>filename</b>\n${filename}\n<b>mimetype</b>\n${mimetype}`, {parse_mode : "HTML"}); 
-            
-        //  Debug
-        //console.log(body);    
-        console.log(jsonObj);
+        busboy.on('finish', function() {    
+          console.log('Done parsing!');
+          //Название устройства
+          console.log(jsonObj["variable-set"]["variable"]);//[7]['metadata'][0]["nls-string-val"]);
+          //Расположение
+          //console.log(jsonObj["variable-set"]["variable"][7]['metadata']);//[2]["struct-val"]["struct-element"][2]["string-val"])
+          //console.log(jsonObj["variable-set"]["variable"][7]['metadata'][1]["nls-string-list-val"]["nls-string-val"][jsonObj["variable-set"]["variable"][7]['u32-val'] - 1] + " - " + jsonObj["variable-set"]["variable"][0]['nls-string-val'] + "\n");
+          //console.log(jsonObj["variable-set"]["variable"][7]['metadata'][2]["struct-val"]["struct-element"][2]["string-val"] + "\n");
+          //console.log(jsonObj["variable-set"]["variable"][6]['struct-val']["struct-element"][4]["nls-string-val"] + "\n");
+          res.send(jsonObj);
         });
-    });
-    busboy.on('finish', function() {    
-      console.log('Done parsing!');
-      //Название устройства
-      console.log(jsonObj["variable-set"]["variable"]);//[7]['metadata'][0]["nls-string-val"]);
-      //Расположение
-      //console.log(jsonObj["variable-set"]["variable"][7]['metadata']);//[2]["struct-val"]["struct-element"][2]["string-val"])
-      //console.log(jsonObj["variable-set"]["variable"][7]['metadata'][1]["nls-string-list-val"]["nls-string-val"][jsonObj["variable-set"]["variable"][7]['u32-val'] - 1] + " - " + jsonObj["variable-set"]["variable"][0]['nls-string-val'] + "\n");
-      //console.log(jsonObj["variable-set"]["variable"][7]['metadata'][2]["struct-val"]["struct-element"][2]["string-val"] + "\n");
-      //console.log(jsonObj["variable-set"]["variable"][6]['struct-val']["struct-element"][4]["nls-string-val"] + "\n");
-      res.send(jsonObj);
-    });
-    req.pipe(busboy);
-    //console.log(`\n${req.headers['content-type']}\n`);
-    //console.log(data['variable-set']['variable'][1]['metadata']);
+        req.pipe(busboy);
+        //console.log(`\n${req.headers['content-type']}\n`);
+        //console.log(data['variable-set']['variable'][1]['metadata']);
+    }
 });
   
 server.listen(port, function () {
@@ -118,6 +121,11 @@ const bot = new TelegramBot(token, {polling: true});
 
 bot.onText(/\/status/, function (msg) {           
     pingCheck("status", msg.chat.id);  
+});
+
+bot.onText(/\/service/, function (msg) {
+        service = !service;
+        sendMessage("service",  msg.from.id, msg.from.first_name, msg.from.last_name);  
 });
 
 /*
@@ -140,6 +148,16 @@ function sendMessage(){
                 }
             });
             bot.sendMessage(arguments[1], str, {disable_web_page_preview : true, parse_mode : "HTML"});
+            break;
+        case 'service':
+            str = '<b>Техобслуживание</b>: ';
+            if (service)
+                str += '<i>Включено</i>';
+            else
+                str += '<i>Выключено</i>';
+            str += ` пользователем <a href="tg://user?id=${arguments[1]}">${arguments[2]} ${arguments[3]}</a>`;
+            bot.sendMessage(arguments[1], str, {parse_mode : "HTML"}); //process.env.CHAT
+            console.log("service"); 
             break;
         case 'on':
             str = `Восстановлено соединение с:\n\n<a href=\"https://${url[arguments[2]]}/\">${url[arguments[2]]}</a>`;
