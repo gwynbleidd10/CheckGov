@@ -148,6 +148,15 @@ function sendMessage(){
                     str += `\n<a href=\"https://${url[i]}/\">${url[i]}</a> - <i>Не овечает</i>`;
                 }
             });
+            str += '\n\n<b>Техобслуживание: </b>\n';
+            if (service)
+            {
+                str += 'Включено';
+            }
+            else
+            {
+                str += 'Выключено';
+            }
             bot.sendMessage(arguments[1], str, {disable_web_page_preview : true, parse_mode : "HTML"});
             break;
         case 'service':
