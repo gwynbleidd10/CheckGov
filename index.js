@@ -63,48 +63,49 @@ server.get('/db', async (req, res) => {
 })
 
 server.post('/', function (req, res) {
-    if (!service){
-        var busboy = new Busboy({ headers: req.headers });
-        var jsonObj;
+    console.log('NEW POST!');    
+    var busboy = new Busboy({ headers: req.headers });
+    var jsonObj;
 
-        busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {     
-            var body = '';   
+    busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {     
+        var body = '';   
 
-            console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
-            file.on('data', function(data) {
-            //console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
-            body += data;
-            });
-            file.on('end', function() {
-            console.log('File [' + fieldname + '] got ' + body.length + ' bytes');
-            jsonObj = parser.parse(body, options);
+        console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
+        file.on('data', function(data) {
+        //console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
+        body += data;
+        });
+        file.on('end', function() {
+        console.log('File [' + fieldname + '] got ' + body.length + ' bytes');
+        jsonObj = parser.parse(body, options);
 
-            database("insert", "INSERT INTO errors(error) VALUES('" + body + "')");        
-            //bot.sendMessage(process.env.CHAT, `Было зафиксировано новое сообщение об ошибке. Все сообщения об ошибках расположены по адресу <a href="https://checkgov.herokuapp.com/db">checkgov.herokuapp.com/db</a>`, {parse_mode : "HTML"});
+        database("insert", "INSERT INTO errors(error) VALUES('" + body + "')");        
+        //bot.sendMessage(process.env.CHAT, `Было зафиксировано новое сообщение об ошибке. Все сообщения об ошибках расположены по адресу <a href="https://checkgov.herokuapp.com/db">checkgov.herokuapp.com/db</a>`, {parse_mode : "HTML"});
 
-            console.log(`Ошибка \n${jsonObj["variable-set"]["variable"][6]['metadata'][1]["nls-string-val"]}\nТип\n${fieldname}\nfilename:\n${filename}\nmimetype: ${mimetype}`);
+        console.log(`Ошибка \n${jsonObj["variable-set"]["variable"][6]['metadata'][1]["nls-string-val"]}\nТип\n${fieldname}\nfilename:\n${filename}\nmimetype: ${mimetype}`);
+        if (!service){
             bot.sendMessage(process.env.CHAT, `<b>Ошибка</b>\n${jsonObj["variable-set"]["variable"][6]['metadata'][1]["nls-string-val"]}\n<b>Тип</b>\n${fieldname}\n<b>filename</b>\n${filename}\n<b>mimetype</b>\n${mimetype}`, {parse_mode : "HTML"}); 
-
-            //  Debug
-            //console.log(body);    
-            console.log(jsonObj);
-            });
+        };
+        //  Debug
+        //console.log(body);    
+        console.log(jsonObj);
         });
-        busboy.on('finish', function() {    
-          console.log('Done parsing!');
-          //Название устройства
-          console.log(jsonObj["variable-set"]["variable"]);//[7]['metadata'][0]["nls-string-val"]);
-          //Расположение
-          //console.log(jsonObj["variable-set"]["variable"][7]['metadata']);//[2]["struct-val"]["struct-element"][2]["string-val"])
-          //console.log(jsonObj["variable-set"]["variable"][7]['metadata'][1]["nls-string-list-val"]["nls-string-val"][jsonObj["variable-set"]["variable"][7]['u32-val'] - 1] + " - " + jsonObj["variable-set"]["variable"][0]['nls-string-val'] + "\n");
-          //console.log(jsonObj["variable-set"]["variable"][7]['metadata'][2]["struct-val"]["struct-element"][2]["string-val"] + "\n");
-          //console.log(jsonObj["variable-set"]["variable"][6]['struct-val']["struct-element"][4]["nls-string-val"] + "\n");
-          res.send(jsonObj);
-        });
-        req.pipe(busboy);
-        //console.log(`\n${req.headers['content-type']}\n`);
-        //console.log(data['variable-set']['variable'][1]['metadata']);
-    }
+    });
+    busboy.on('finish', function() {    
+      console.log('Done parsing!');
+      //Название устройства
+      console.log(jsonObj["variable-set"]["variable"]);//[7]['metadata'][0]["nls-string-val"]);
+      //Расположение
+      //console.log(jsonObj["variable-set"]["variable"][7]['metadata']);//[2]["struct-val"]["struct-element"][2]["string-val"])
+      //console.log(jsonObj["variable-set"]["variable"][7]['metadata'][1]["nls-string-list-val"]["nls-string-val"][jsonObj["variable-set"]["variable"][7]['u32-val'] - 1] + " - " + jsonObj["variable-set"]["variable"][0]['nls-string-val'] + "\n");
+      //console.log(jsonObj["variable-set"]["variable"][7]['metadata'][2]["struct-val"]["struct-element"][2]["string-val"] + "\n");
+      //console.log(jsonObj["variable-set"]["variable"][6]['struct-val']["struct-element"][4]["nls-string-val"] + "\n");
+      //res.send(jsonObj);
+    });
+    req.pipe(busboy);
+    //console.log(`\n${req.headers['content-type']}\n`);
+    //console.log(data['variable-set']['variable'][1]['metadata']);  
+    res.status(200).send("OK");
 });
   
 server.listen(port, function () {
