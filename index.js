@@ -59,7 +59,7 @@ server.use(express.json());
 server.use(express.urlencoded({extended: true}));
 
 server.get('/db', async (req, res) => {
-    res.json(await database("query", "SELECT * FROM errors order by id desc limit 100"));
+    res.json(await database("query", "SELECT * FROM errors order by id desc limit 20"));
 })
 
 server.post('/', function (req, res) {
