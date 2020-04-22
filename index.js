@@ -81,16 +81,16 @@ function sendMessage(){
             bot.sendMessage(codChat, str, {parse_mode : "HTML"});
             console.log("service"); 
             break;
-        case 'on':
-            str = `Восстановлено соединение с:\n\n<a href=\"https://${url[arguments[2]]}/\">${url[arguments[2]]}</a>`;
-            bot.sendMessage(codChat, str, {parse_mode : "HTML"}); 
-            console.log("on");           
-            break;
-        case 'off':
-            str = `Потеряно соединение с:\n\n<a href=\"https://${url[arguments[2]]}/\">${url[arguments[2]]}</a>`;
-            bot.sendMessage(codChat, str, {parse_mode : "HTML"});
-            console.log("off");
-            break;
+//         case 'on':
+//             str = `Восстановлено соединение с:\n\n<a href=\"https://${url[arguments[2]]}/\">${url[arguments[2]]}</a>`;
+//             bot.sendMessage(codChat, str, {parse_mode : "HTML"}); 
+//             console.log("on");           
+//             break;
+//         case 'off':
+//             str = `Потеряно соединение с:\n\n<a href=\"https://${url[arguments[2]]}/\">${url[arguments[2]]}</a>`;
+//             bot.sendMessage(codChat, str, {parse_mode : "HTML"});
+//             console.log("off");
+//             break;
         default:
             console.log('default');
             
